@@ -1,0 +1,60 @@
+.root{
+    -fx-background-image: url(../../resource/image/background/background2.jpg);
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+}
+#playButton{
+    -fx-font-style: italic;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-background-color: linear-gradient(to  right bottom, #12c2e9, #c471ed, #f64f59);
+    -fx-border-width: 3px;
+    -fx-border-style: solid;
+    -fx-border-color: #d9d9d9;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-pref-height: 65px;
+    -fx-pref-width: 120px;
+}
+#playButton:hover{
+    -fx-border-color: gray;
+    -fx-text-fill: white;
+}
+#playButton:pressed{
+     -fx-background-color: #235891;
+     -fx-background-color: linear-gradient(to  right bottom, #b92b27, #1565c0);
+}
+
+#soundButton {
+    -fx-background-image: url(../../resource/image/button/speaker-filled-audio-tool.png);
+    -fx-background-size: 50%;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-radius: 50%;
+    -fx-background-color: #3895D3;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 50px;
+}
+#soundButton:muted{
+    -fx-background-image: url(../../resource/image/button/mute.png);
+}
+
+#soundButton:hover, .difficulty:hover{
+    -fx-background-color: #146bb3;
+}
+
+#soundButton:pressed, .difficulty:pressed{
+    -fx-background-color: #0f5084;
+}
+
+.difficulty {
+    -fx-font-smooth: always;
+    -fx-font-family: Verdana;
+    -fx-font-weight: 600;
+    -fx-font-size: 18px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-background-color: #3895D3;
+    -fx-pref-height: 60px;
+    -fx-pref-width: 100px;
+}
