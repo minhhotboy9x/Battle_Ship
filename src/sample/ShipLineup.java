@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import sample.model.Map;
 import static sample.Intro.soundButton;
 import static sample.Intro.soundButtonClick;
-import sample.model.graphic.ModelSize;
+import sample.model.graphic.ModelSpec;
 
 public class ShipLineup extends Application {
     public void start(Stage primaryStage) throws Exception {
@@ -18,19 +18,19 @@ public class ShipLineup extends Application {
         Scene scene = new Scene(root, 1280, 720, false, SceneAntialiasing.BALANCED);
         scene.getStylesheets().add("sample/css/style.css");
         // vẽ map
-        Map lineupMap = new Map(60, 150, root, ModelSize.lineupMapSize, ModelSize.mapSpots);
+        Map lineupMap = new Map(ModelSpec.posLineUpMapX, ModelSpec.posLineUpMapY, root, ModelSpec.lineupMapSize, ModelSpec.mapSpots);
         lineupMap.drawMap();
         //--------------
 
         // vẽ ship container
         Rectangle rect = new Rectangle();
         rect.setStyle("-fx-fill: rgba(255,255,255,0.5);");
-        rect.setHeight(600);
-        rect.setWidth(400);
+        rect.setHeight(ModelSpec.rectHeight);
+        rect.setWidth(ModelSpec.rectWidth);
 
         rect.setStroke(Color.BLACK);
-        rect.setTranslateX(740);
-        rect.setTranslateY(80);
+        rect.setTranslateX(ModelSpec.posLineUpRectX);
+        rect.setTranslateY(ModelSpec.posLineUpRectY);
         //
 
         // soundButton

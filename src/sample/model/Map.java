@@ -3,7 +3,6 @@ package sample.model;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import sample.model.graphic.ModelSize;
 
 public class Map extends Coordinate{
     private double beginX; // toa độ đặt map
