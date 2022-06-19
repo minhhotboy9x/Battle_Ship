@@ -5,6 +5,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import sample.model.graphic.ModelSpec;
 
 import static sample.model.graphic.ModelSpec.mapSpots;
 
@@ -179,8 +180,8 @@ public class Ship extends Coordinate{
                 vX = gocX + (uY - gocY);
                 vY = gocY - (uX - gocX);
 
-                mouseAnchorX = 0 + oldAnchorY;
-                mouseAnchorY = 50 - oldAnchorX;
+                mouseAnchorX = oldAnchorY;
+                mouseAnchorY = ModelSpec.lineupMapSquareSize - oldAnchorX;
             }
             else {
                 uX = r.getTranslateX();
@@ -189,12 +190,9 @@ public class Ship extends Coordinate{
                 vX = gocX - (uY - gocY);
                 vY = gocY + (uX - gocX);
 
-                mouseAnchorX = 50 - oldAnchorY;
+                mouseAnchorX = ModelSpec.lineupMapSquareSize - oldAnchorY;
                 mouseAnchorY = oldAnchorX;
             }
-            System.out.println(mouseAnchorX + " " + mouseAnchorY
-                    +" \n"+ oldAnchorX +" "+ oldAnchorY+
-                    vertical+'\n');
             this.changeShape(vX , vY);
         }
     }
