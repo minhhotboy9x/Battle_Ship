@@ -14,7 +14,7 @@
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
     -fx-pref-height: 65px;
-    -fx-pref-width: 120px;
+    -fx-pref-width: 200px;
 }
 #playButton:hover, #highScoreButton:hover, #exitButton:hover {
     -fx-border-color: gray;

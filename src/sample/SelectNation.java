@@ -45,6 +45,7 @@ public class SelectNation extends Application {
 
         root.getChildren().addAll(soundButton, hBox, Intro.nameLabel);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
     public static void main(String[] args) {

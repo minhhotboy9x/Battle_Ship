@@ -44,7 +44,7 @@ public class Intro extends Application {
         Button playButton = new Button("Play");
         playButton.setId("playButton");
 
-        playButton.setLayoutX(575);
+        playButton.setLayoutX(525);
         playButton.setLayoutY(380);
         playButton.setOnAction(e->{ //change scene
             Difficulty secondScene = new Difficulty();
@@ -63,6 +63,15 @@ public class Intro extends Application {
 
         highScoreButton.setLayoutX(525);
         highScoreButton.setLayoutY(450);
+        highScoreButton.setOnAction(e->{ //change scene
+            HighScore highScoreScene = new HighScore();
+            try {
+                highScoreScene.start(primaryStage);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
+
         //-------
 
         // exit button

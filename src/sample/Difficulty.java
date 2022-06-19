@@ -29,12 +29,14 @@ public class Difficulty extends Application{
        hBox.setLayoutY(380);
         hBox.setSpacing(150);
 
+        Button normalButton = new Button("Normal");
+        normalButton.setId("normalButton");
         Button hardButton = new Button("Hard");
-        Button harderButton = new Button("Harder");
+        hardButton.setId("hardButton");
+        normalButton.getStyleClass().add("difficulty");
         hardButton.getStyleClass().add("difficulty");
-        harderButton.getStyleClass().add("difficulty");
 
-        hardButton.setOnAction(e->{
+        normalButton.setOnAction(e->{
             try {
                 this.changeScene(primaryStage);
                 Bot.mode = 1;
@@ -44,7 +46,7 @@ public class Difficulty extends Application{
             }
         });
 
-        harderButton.setOnAction(e->{
+        hardButton.setOnAction(e->{
             try {
                 this.changeScene(primaryStage);
                 Bot.mode = 2;
@@ -53,7 +55,7 @@ public class Difficulty extends Application{
                 exception.printStackTrace();
             }
         });
-        hBox.getChildren().addAll(hardButton, harderButton);
+        hBox.getChildren().addAll(normalButton, hardButton);
         //---------------------------------
 
         // soundButton
@@ -68,6 +70,7 @@ public class Difficulty extends Application{
 
         root.getChildren().addAll(soundButton, hBox, Intro.nameLabel);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
