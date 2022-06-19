@@ -58,3 +58,8 @@
     -fx-pref-height: 60px;
     -fx-pref-width: 100px;
 }
+
+#gridPane {
+    -fx-border-radius: 20px;
+    -fx-background-color: #FAF0D7;
+}

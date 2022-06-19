@@ -1,12 +1,17 @@
 package sample;
 import javafx.application.Application;
 
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.bot.Bot;
 
@@ -22,12 +27,18 @@ public class Difficulty extends Application{
         Scene scene = new Scene(root, 1280, 720, false, SceneAntialiasing.BALANCED);
         scene.getStylesheets().add("sample/css/style.css");
 
-        //difficulty
-        HBox hBox = new HBox();
-        hBox.setAlignment(Pos.CENTER);
-        hBox.setLayoutX(465);
-       hBox.setLayoutY(380);
-        hBox.setSpacing(150);
+        Label username = new Label(" UserName:");
+        username.setId("username");
+        username.setTextFill(Color.BLACK);
+        username.setFont(Font.font(24));
+        username.setLayoutX(430);
+        username.setLayoutY(350);
+
+        TextField fieldName = new TextField();
+        fieldName.setId("fieldName");
+        fieldName.setFont(Font.font(24));
+        fieldName.setLayoutX(590);
+        fieldName.setLayoutY(350);
 
         Button normalButton = new Button("Normal");
         normalButton.setId("normalButton");
@@ -55,8 +66,26 @@ public class Difficulty extends Application{
                 exception.printStackTrace();
             }
         });
-        hBox.getChildren().addAll(normalButton, hardButton);
         //---------------------------------
+
+        // tao gridPane
+        GridPane gridPane = new GridPane();
+        gridPane.setId("gridPane");
+        gridPane.setMinSize(450, 30);
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setLayoutX(400);
+        gridPane.setLayoutY(300);
+
+        gridPane.add(username, 0 , 0);
+        gridPane.add(fieldName, 1, 0);
+        gridPane.add(normalButton, 0, 1);
+        gridPane.setHalignment(hardButton, HPos.RIGHT);
+        gridPane.add(hardButton, 1, 1);
+
+        gridPane.setPadding(new Insets(20));
+        gridPane.setHgap(10);  // khoang cach giua 2 hang
+        gridPane.setVgap(10);  // khoang cach giua 2 cot
+        //-----------
 
         // soundButton
         // set lai thuoc tinh de debug
@@ -68,9 +97,9 @@ public class Difficulty extends Application{
         });
         //---------------------------
 
-        root.getChildren().addAll(soundButton, hBox, Intro.nameLabel);
+        //root.getChildren().addAll(soundButton, gridPane ,hBox, Intro.nameLabel);
+        root.getChildren().addAll(soundButton, gridPane, Intro.nameLabel);
         primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
