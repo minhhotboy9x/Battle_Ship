@@ -56,6 +56,26 @@ public class Intro extends Application {
         });
         //-------
 
+
+        // hard score button
+        Button highScoreButton = new Button("High Score");
+        highScoreButton.setId("highScoreButton");
+
+        highScoreButton.setLayoutX(525);
+        highScoreButton.setLayoutY(450);
+        //-------
+
+        // exit button
+        Button exitButton = new Button("Exit");
+        exitButton.setId("exitButton");
+
+        exitButton.setLayoutX(525);
+        exitButton.setLayoutY(520);
+        exitButton.setOnAction(e->{
+            ((Stage)root.getScene().getWindow()).close();
+        });
+        //-------
+
         //soundButton
         soundButton.setId("soundButton");
         soundButton.setLayoutX(1200);
@@ -64,7 +84,7 @@ public class Intro extends Application {
             soundButtonClick();
         });
         //
-        root.getChildren().addAll(playButton, soundButton, nameLabel);
+        root.getChildren().addAll(playButton, highScoreButton, exitButton ,soundButton, nameLabel);
 
         primaryStage.setResizable(false);
         primaryStage.sizeToScene();

@@ -26,7 +26,7 @@ public class Difficulty extends Application{
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER);
         hBox.setLayoutX(465);
-        hBox.setLayoutY(380);
+       hBox.setLayoutY(380);
         hBox.setSpacing(150);
 
         Button hardButton = new Button("Hard");

@@ -3,7 +3,7 @@
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
 }
-#playButton{
+#playButton, #highScoreButton, #exitButton{
     -fx-font-style: italic;
     -fx-font-weight: bold;
     -fx-font-size: 20px;
@@ -16,7 +16,7 @@
     -fx-pref-height: 65px;
     -fx-pref-width: 120px;
 }
-#playButton:hover{
+#playButton:hover, #highScoreButton:hover, #exitButton:hover {
     -fx-border-color: gray;
     -fx-text-fill: white;
 }
