@@ -11,7 +11,7 @@ import sample.model.Map;
 import static sample.Intro.soundButton;
 import static sample.Intro.soundButtonClick;
 import sample.model.graphic.ModelSpec;
-
+// sửa ví dụ
 public class ShipLineup extends Application {
     public void start(Stage primaryStage) throws Exception {
         Pane root = new Pane();
