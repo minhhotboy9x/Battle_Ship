@@ -7,21 +7,22 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import sample.model.Map;
+import sample.model.LineupMap;
+import sample.model.LineupMap;
 import static sample.Intro.soundButton;
 import static sample.Intro.soundButtonClick;
 
 import sample.model.Ship;
 import sample.model.graphic.ModelSpec;
 
-public class ShipLineup extends Application {
+public class SetLineup extends Application {
     public void start(Stage primaryStage) throws Exception {
         Pane root = new Pane();
         Scene scene = new Scene(root, 1280, 720, false, SceneAntialiasing.BALANCED);
         scene.getStylesheets().add("sample/css/style.css");
 
         // vẽ map
-        Map lineupMap = new Map(ModelSpec.posLineUpMapX, ModelSpec.posLineUpMapY, root, ModelSpec.lineupMapSize, ModelSpec.mapSpots);
+        LineupMap lineupMap = new LineupMap(ModelSpec.posLineUpMapX, ModelSpec.posLineUpMapY, root, ModelSpec.lineupMapSize, ModelSpec.mapSpots);
         lineupMap.drawMap();
         //----------------------------
 

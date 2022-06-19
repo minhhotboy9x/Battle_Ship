@@ -13,13 +13,13 @@ public class Ship extends Coordinate{
     private int vertical; // 0 horizontal, 1 vertical
     private double squareSize;
     private Pane pane;
-    private Map lineupMap;
+    private LineupMap lineupMap;
     private Rectangle r;
     //----xu ly mouse----------
     private double mouseAnchorX; // use for drag and press ship
     private double mouseAnchorY; // use for drag and press ship
     //---------------------
-    public Ship(double x, double y, int length, int vertical, double squareSize, Map lineupMap, Pane myPane) {
+    public Ship(double x, double y, int length, int vertical, double squareSize, LineupMap lineupMap, Pane myPane) {
         super(x, y);
         this.length = length;
         this.vertical = vertical;
