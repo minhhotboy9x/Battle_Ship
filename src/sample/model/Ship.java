@@ -166,7 +166,6 @@ public class Ship extends Coordinate{
 
     private void draggedRotate(MouseEvent event) { //xoay thuyen khi dang keo = chuot phai
         if(event.getButton()==MouseButton.SECONDARY) {
-
             double gocX = event.getSceneX() ;
             double gocY = event.getSceneY();
             double uX, uY;
