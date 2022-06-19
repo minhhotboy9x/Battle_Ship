@@ -42,7 +42,9 @@ public class LineupMap extends Coordinate{
     public void setStateCell(int i, int j , int x) {
         this.stateCell[i][j] = x;
     }
-
+    public int getStateCell(int i, int j) {
+        return this.stateCell[i][j];
+    }
     public double getSize() {
         return size;
     }

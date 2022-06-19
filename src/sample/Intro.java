@@ -57,7 +57,7 @@ public class Intro extends Application {
         //-------
 
 
-        // hard score button
+        // high score button
         Button highScoreButton = new Button("High Score");
         highScoreButton.setId("highScoreButton");
 
