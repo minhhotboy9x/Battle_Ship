@@ -2,6 +2,7 @@ package sample;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -16,7 +17,11 @@ import static sample.Intro.soundButtonClick;
 import sample.model.Ship;
 import sample.model.graphic.ModelSpec;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class SetLineup extends Application {
+    public static int countShip = 0;
     public void start(Stage primaryStage) throws Exception {
         Pane root = new Pane();
         Scene scene = new Scene(root, 1280, 720, false, SceneAntialiasing.BALANCED);
@@ -47,6 +52,35 @@ public class SetLineup extends Application {
         Ship ship5 = new Ship(1050, 350, 2, 1, ModelSpec.lineupMapSquareSize, lineupMap, root);
         //------------------------------
 
+        // -------------Ready button----------------
+        Button readyButton = new Button("Ready");
+        readyButton.setTranslateX(600);
+        readyButton.setTranslateY(400);
+
+        Timer checkThread = new Timer("CheckCountShip");
+        TimerTask checkExecution = new TimerTask() {
+            @Override
+            public void run() {
+                //System.out.println(countShip);
+                if(countShip == 5) //du thuyen
+                    readyButton.setDisable(false);
+                else
+                    readyButton.setDisable(true);
+            }
+        };
+
+        readyButton.setOnAction(e->{ //chuyen game
+            Game game = new Game();
+            try {
+                game.start(primaryStage);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
+        checkThread.schedule(checkExecution, 1,1);
+        primaryStage.setOnHidden(e->checkThread.cancel());
+        //------------------------------
+
         // soundButton
         // set lai thuoc tinh de debug
         soundButton.setId("soundButton");
@@ -58,7 +92,7 @@ public class SetLineup extends Application {
         //-----------------------------
 
         primaryStage.setResizable(false);
-        root.getChildren().addAll(soundButton, rect);
+        root.getChildren().addAll(soundButton, rect, readyButton);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

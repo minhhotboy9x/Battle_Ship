@@ -5,6 +5,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import sample.SetLineup;
 import sample.model.graphic.ModelSpec;
 
 import static sample.model.graphic.ModelSpec.mapSpots;
@@ -134,13 +135,14 @@ public class Ship extends Coordinate{
         if (!this.inMap(idX, idY) || isCollision(idX, idY)) // k nam trong map hoặc đụng thuyen -> về container
             this.draw(this.x, this.y);
         else {// vo map
+            SetLineup.countShip++ ; //them mot tau vo map
             this.draw(lineupMap.getX() + idX * squareSize, lineupMap.getY() + idY * squareSize);
             for (int i = idX; i < idX + Math.max(1, length * (1 - vertical)); i++)
                 for (int j = idY; j < idY + Math.max(1, length * vertical); j++) {
                     lineupMap.setStateCell(i, j, 1);
                 }
         }
-        r.setOnMousePressed(e->pressedMouse(e));
+        this.r.setOnMousePressed(e -> pressedMouse(e));
     }
 
     private void pressedMouse(MouseEvent event) {
@@ -149,6 +151,7 @@ public class Ship extends Coordinate{
         if(this.inMap()) {
             if(event.getButton()==MouseButton.PRIMARY)
             {
+                SetLineup.countShip-- ; //bo mot tau ra khoi map
                 int idX = (int) ((this.r.getTranslateX() - lineupMap.getX()) / squareSize); //idX of map
                 int idY = (int) ((this.r.getTranslateY() - lineupMap.getY()) / squareSize); //idY of map
                 for (int i = idX; i < idX + Math.max(1, length * (1 - vertical)); i++)
@@ -158,7 +161,7 @@ public class Ship extends Coordinate{
             }
         }
         else {
-            if(event.getButton()==MouseButton.SECONDARY) { //xoay tau quanh x, y
+            if(event.getButton()==MouseButton.SECONDARY) {
                 this.changeShape();
             }
         }
