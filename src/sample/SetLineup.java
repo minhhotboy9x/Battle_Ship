@@ -34,7 +34,7 @@ public class SetLineup extends Application {
 
         // vẽ ship container
         Rectangle rect = new Rectangle();
-        rect.setStyle("-fx-fill: rgba(169,169,169,0.5);");
+        rect.setStyle("-fx-fill: rgba(143, 177, 235, 0.75);");
         rect.setHeight(ModelSpec.rectHeight);
         rect.setWidth(ModelSpec.rectWidth);
         rect.setStrokeWidth(2);

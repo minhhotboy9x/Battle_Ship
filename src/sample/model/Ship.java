@@ -109,9 +109,9 @@ public class Ship extends Coordinate{
     }
     //--------------------------------------------
     public void setImage(String s) { // set img for ship
-        s = s+vertical;
+        s = s + vertical;
         Image image = new Image(
-                Ship.class.getResource("../../resource/image/ship/type1/"+ s +".png").toString());
+                Ship.class.getResource("../../resource/image/ship/type2/"+ s +".png").toString());
         r.setFill(new ImagePattern(image));
     }
     //-----------------method for this.r-----------------
