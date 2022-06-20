@@ -1,9 +1,11 @@
 package sample.model;
 
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import sample.SetLineup;
 import sample.model.graphic.ModelSpec;
@@ -19,11 +21,13 @@ public class Ship extends Coordinate{
     private Pane pane;
     private LineupMap lineupMap;
     private Rectangle r;
+    private String s;
     //----xu ly mouse----------
     private double mouseAnchorX; // use for drag and press ship
     private double mouseAnchorY; // use for drag and press ship
+
     //---------------------
-    public Ship(double x, double y, int length, int vertical, double squareSize, LineupMap lineupMap, Pane myPane) {
+    public Ship(double x, double y, int length, int vertical, double squareSize, LineupMap lineupMap, Pane myPane, String s) {
         super(x, y);
         this.length = length;
         this.vertical = vertical;
@@ -31,8 +35,9 @@ public class Ship extends Coordinate{
         this.lineupMap = lineupMap;
         this.pane = myPane;
         this.r = new Rectangle();
-        r.setStroke(Color.BLACK);
-        r.setFill(Color.BLUE);
+        this.s = s;
+        //------------------------------
+        this.setImage(s);
         draw(x, y); //ve ra container ngay khi khoi tao
         //---------------------
         this.r.setOnMousePressed(event -> pressedMouse(event)); // giu chuot
@@ -51,13 +56,17 @@ public class Ship extends Coordinate{
     }
     public void changeShape() { //xoay tau
         vertical = 1-vertical;
+        setImage(s);
         draw(x, y);
     }
     public void changeShape(double x, double y) { //xoay tau
         vertical = 1-vertical;
+        setImage(s);
         draw(x, y);
     }
+    //------set image-------------------
 
+    //---------------------------------
     public double getHeight(){ return Math.max(length * vertical * squareSize, squareSize); }
     public double getWidth(){ return Math.max(length * (1-vertical) * squareSize, squareSize); }
     //----------------------------------------
@@ -99,7 +108,12 @@ public class Ship extends Coordinate{
         return false;
     }
     //--------------------------------------------
-
+    public void setImage(String s) { // set img for ship
+        s = s+vertical;
+        Image image = new Image(
+                Ship.class.getResource("../../resource/image/ship/type1/"+ s +".png").toString());
+        r.setFill(new ImagePattern(image));
+    }
     //-----------------method for this.r-----------------
     private void draggedMouse(MouseEvent event) {
         if(event.getButton() == MouseButton.SECONDARY) //neu chuọt phai thi bo
@@ -160,11 +174,14 @@ public class Ship extends Coordinate{
                     }
             }
         }
-        else {
-            if(event.getButton()==MouseButton.SECONDARY) {
+
+        if(event.isPrimaryButtonDown() && event.isSecondaryButtonDown()) {
+            draggedRotate(event);
+        }
+        else
+            if(!this.inMap() && event.isSecondaryButtonDown()) {
                 this.changeShape();
             }
-        }
     }
 
     private void draggedRotate(MouseEvent event) { //xoay thuyen khi dang keo = chuot phai

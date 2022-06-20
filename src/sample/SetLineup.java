@@ -3,9 +3,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -34,10 +34,10 @@ public class SetLineup extends Application {
 
         // vẽ ship container
         Rectangle rect = new Rectangle();
-        rect.setStyle("-fx-fill: rgba(255,255,255,0.5);");
+        rect.setStyle("-fx-fill: rgba(169,169,169,0.5);");
         rect.setHeight(ModelSpec.rectHeight);
         rect.setWidth(ModelSpec.rectWidth);
-        //rect.setOnMouseClicked(e->System.out.println("1"));
+        rect.setStrokeWidth(2);
         rect.setViewOrder(2.0);
         rect.setStroke(Color.BLACK);
         rect.setTranslateX(ModelSpec.posLineUpRectX); //750
@@ -45,17 +45,19 @@ public class SetLineup extends Application {
         //----------------------------
 
         //draw ship on container
-        Ship ship1 = new Ship(800, 100, 5, 1, ModelSpec.lineupMapSquareSize, lineupMap, root);
-        Ship ship2 = new Ship(800, 400, 4, 1, ModelSpec.lineupMapSquareSize, lineupMap, root);
-        Ship ship3 = new Ship(950, 200, 3, 1, ModelSpec.lineupMapSquareSize, lineupMap, root);
-        Ship ship4 = new Ship(1000, 500, 3, 1, ModelSpec.lineupMapSquareSize, lineupMap, root);
-        Ship ship5 = new Ship(1050, 350, 2, 1, ModelSpec.lineupMapSquareSize, lineupMap, root);
+        Ship ship1 = new Ship(800, 100, 5, 1, ModelSpec.lineupMapSquareSize, lineupMap, root, "a");
+        Ship ship2 = new Ship(800, 400, 4, 1, ModelSpec.lineupMapSquareSize, lineupMap, root, "b");
+        Ship ship3 = new Ship(950, 200, 3, 1, ModelSpec.lineupMapSquareSize, lineupMap, root, "c");
+        Ship ship4 = new Ship(1000, 500, 3, 1, ModelSpec.lineupMapSquareSize, lineupMap, root, "d");
+        Ship ship5 = new Ship(1050, 350, 2, 1, ModelSpec.lineupMapSquareSize, lineupMap, root, "e");
+
         //------------------------------
 
         // -------------Ready button----------------
         Button readyButton = new Button("Ready");
         readyButton.setTranslateX(600);
         readyButton.setTranslateY(400);
+        readyButton.setViewOrder(2.0);
 
         Timer checkThread = new Timer("CheckCountShip");
         TimerTask checkExecution = new TimerTask() {
@@ -90,7 +92,6 @@ public class SetLineup extends Application {
             soundButtonClick();
         });
         //-----------------------------
-
         primaryStage.setResizable(false);
         root.getChildren().addAll(soundButton, rect, readyButton);
         primaryStage.setScene(scene);

@@ -13,6 +13,7 @@ import static sample.Intro.soundButton;
 import static sample.Intro.soundButtonClick;
 
 public class SelectNation extends Application {
+    public static int nation = 1;
     @Override
     public void start(Stage primaryStage) throws Exception {
         Pane root = new Pane();
