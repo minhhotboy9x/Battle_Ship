@@ -4,6 +4,8 @@ import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class DataControl {
@@ -61,6 +63,21 @@ public class DataControl {
             datas.add(data);
         }
         closeFileAfterRead(fileName);
+        // sap xep danh sach
+        Collections.sort(datas, new Comparator<Data>() {
+            @Override
+            public int compare(Data sv1, Data sv2) {
+                if (sv1.getHighScore() < sv2.getHighScore()) {
+                    return 1;
+                } else {
+                    if (sv1.getHighScore() == sv2.getHighScore()) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                }
+            }
+        });
         return datas;
     }
 

@@ -93,15 +93,16 @@ public class HighScore extends Application {
         //set return button
         Image returnImage = new Image("resource/image/button/return1.png");
         ImageView returnImageView = new ImageView(returnImage);
-
-        returnImageView.setFitWidth(50);
-        returnImageView.setFitHeight(50);
+        // chinh kich thuoc anh
+        returnImageView.setFitWidth(100);
+        returnImageView.setFitHeight(100);
 
         Button returnButton = new Button("",returnImageView);
        // Button returnButton = new Button();
         returnButton.setId("returnButton");
-        returnButton.setLayoutX(320);
-        returnButton.setLayoutY(200);
+        returnButton.setLayoutX(310);
+        returnButton.setLayoutY(170);
+        returnButton.setBackground(null);
         returnButton.setOnAction(e->{
             //change scene
             Intro introScene = new Intro();
