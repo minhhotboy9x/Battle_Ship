@@ -1,7 +1,9 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Button;
@@ -13,7 +15,7 @@ import static sample.Intro.soundButton;
 import static sample.Intro.soundButtonClick;
 
 public class SelectNation extends Application {
-    public static int nation = 1;
+    public static int nation = 1; // type of fleet
     @Override
     public void start(Stage primaryStage) throws Exception {
         Pane root = new Pane();
@@ -29,6 +31,14 @@ public class SelectNation extends Application {
 
         Button nation1 = new Button("nation1");
         Button nation2 = new Button("nation2");
+        nation1.setOnAction(e->{
+            nation = 1;
+            toSetLineUp(e);
+        });
+        nation2.setOnAction(e->{
+            nation = 2;
+            toSetLineUp(e);
+        });
         nation1.getStyleClass().add("nation");
         nation2.getStyleClass().add("nation");
 
@@ -49,6 +59,17 @@ public class SelectNation extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
     }
+
+    private void toSetLineUp(ActionEvent e) {
+        SetLineup setLineup = new SetLineup();
+        Stage primaryStage = (Stage) ((Node) e.getTarget()).getScene().getWindow();
+        try {
+            setLineup.start(primaryStage);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         launch(args);
     }

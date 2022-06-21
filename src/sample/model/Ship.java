@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import sample.SelectNation;
 import sample.SetLineup;
 import sample.model.graphic.ModelSpec;
 
@@ -109,9 +110,9 @@ public class Ship extends Coordinate{
     }
     //--------------------------------------------
     public void setImage(String s) { // set img for ship
-        s = s + vertical;
+        s = "type"+ SelectNation.nation + "/" + s + vertical;
         Image image = new Image(
-                Ship.class.getResource("../../resource/image/ship/type2/"+ s +".png").toString());
+                Ship.class.getResource("../../resource/image/ship/"+ s +".png").toString());
         r.setFill(new ImagePattern(image));
     }
     //-----------------method for this.r-----------------
