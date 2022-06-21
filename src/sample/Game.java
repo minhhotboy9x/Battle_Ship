@@ -13,8 +13,9 @@ public class Game {
         scene.getStylesheets().add("sample/css/style.css");
 
 
+
         primaryStage.setResizable(false);
-        root.getChildren().addAll(soundButton);
+        root.getChildren().addAll(soundButton, Intro.nameLabel);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
