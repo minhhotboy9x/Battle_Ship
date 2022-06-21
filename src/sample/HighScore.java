@@ -1,26 +1,34 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import sample.model.data.Data;
+import sample.model.data.DataControl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class HighScore extends Application {
 
     public static void main(String[] args) {
         launch(args);
     }
-    private TableView table = new TableView();
-
+    private TableView<Data> table = new TableView();
+    private ObservableList<Data> danhSachKetQua;
 
     @Override
     public void start(Stage stage)throws IOException {
@@ -31,6 +39,21 @@ public class HighScore extends Application {
         // tao label
         final Label label = new Label("High Score");
         label.setId("highScoreLabel");
+
+
+        // Nhan du lieu vao bang
+        var dataFileName = "DATA.txt";
+
+        ArrayList<Data> datas = new ArrayList<>();
+        DataControl dataControl = new DataControl();
+
+        datas = dataControl.readReaderFromFile(dataFileName);
+        // doc du lieu vao observableArray
+        danhSachKetQua= FXCollections.observableList(datas);
+   //     danhSachKetQua= FXCollections.observableArrayList(
+//                new Data("LoiVu", 12000),
+//                new Data("TuanNgo", 13000)
+//        );
 
         // tao bang table
         table.setEditable(true);
@@ -43,23 +66,29 @@ public class HighScore extends Application {
         TableColumn rankCol = new TableColumn("Ranking");
         rankCol.setMinWidth(120);
         rankCol.setMaxWidth(120);
-        table.getColumns().addAll(rankCol , nameCol, scoreCol);
 
+
+        nameCol.setCellValueFactory( new PropertyValueFactory<Data, String>("userName"));
+        scoreCol.setCellValueFactory( new PropertyValueFactory<Data, Integer>("highScore"));
+
+        table.setItems(danhSachKetQua);
+        table.getColumns().addAll(rankCol , nameCol, scoreCol);
 
         table.setLayoutX(400);
         table.setLayoutY(200);
         table.setMinWidth(490);
+        //----------------
 
         //set return button
-        Image returnImage = new Image("resource/image/button/mute.png");
-        ImageView returnImageView = new ImageView(returnImage);
+        //Image returnImage = new Image(""resource/image/button/return1.png"");
+        //ImageView returnImageView = new ImageView(returnImage);
 
-        returnImageView.setFitWidth(50);
-        returnImageView.setFitHeight(50);
+        //returnImageView.setFitWidth(50);
+        //returnImageView.setFitHeight(50);
 
-
-
-        Button returnButton = new Button("", returnImageView);
+        //Button returnButton = new Button("", returnImageView);
+        Button returnButton = new Button();
+        returnButton.setId("returnButton");
         returnButton.setLayoutX(320);
         returnButton.setLayoutY(200);
         returnButton.setOnAction(e->{
@@ -74,7 +103,6 @@ public class HighScore extends Application {
         });
 
 
-
         root.getChildren().addAll(label, table, returnButton);
 
         stage.setResizable(false);
@@ -83,4 +111,5 @@ public class HighScore extends Application {
         stage.show();
 
     }
+
 }
