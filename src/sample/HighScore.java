@@ -2,6 +2,7 @@ package sample;
 
 import javafx.application.Application;
 import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
@@ -21,6 +22,7 @@ import sample.model.data.DataControl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class HighScore extends Application {
 
@@ -28,7 +30,9 @@ public class HighScore extends Application {
         launch(args);
     }
     private TableView<Data> table = new TableView();
+
     private ObservableList<Data> danhSachKetQua;
+
 
     @Override
     public void start(Stage stage)throws IOException {
@@ -50,13 +54,10 @@ public class HighScore extends Application {
         datas = dataControl.readReaderFromFile(dataFileName);
         // doc du lieu vao observableArray
         danhSachKetQua= FXCollections.observableList(datas);
-   //     danhSachKetQua= FXCollections.observableArrayList(
-//                new Data("LoiVu", 12000),
-//                new Data("TuanNgo", 13000)
-//        );
 
         // tao bang table
         table.setEditable(true);
+        table.setId("table");
         TableColumn nameCol = new TableColumn("Name");
         nameCol.setMinWidth(250);
         nameCol.setMaxWidth(250);
@@ -77,17 +78,27 @@ public class HighScore extends Application {
         table.setLayoutX(400);
         table.setLayoutY(200);
         table.setMinWidth(490);
+        table.setMaxHeight(500);
+
+        table.setFixedCellSize(25);
+       // table.prefHeightProperty().bind(Bindings.size(table.getItems()).multiply(table.getFixedCellSize()).add(20));
         //----------------
 
+        //danh so thu tu het hang dau
+
+
+
+
+
         //set return button
-        //Image returnImage = new Image(""resource/image/button/return1.png"");
-        //ImageView returnImageView = new ImageView(returnImage);
+        Image returnImage = new Image("resource/image/button/return1.png");
+        ImageView returnImageView = new ImageView(returnImage);
 
-        //returnImageView.setFitWidth(50);
-        //returnImageView.setFitHeight(50);
+        returnImageView.setFitWidth(50);
+        returnImageView.setFitHeight(50);
 
-        //Button returnButton = new Button("", returnImageView);
-        Button returnButton = new Button();
+        Button returnButton = new Button("",returnImageView);
+       // Button returnButton = new Button();
         returnButton.setId("returnButton");
         returnButton.setLayoutX(320);
         returnButton.setLayoutY(200);
