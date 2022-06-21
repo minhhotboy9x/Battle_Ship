@@ -5,7 +5,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class LineupMap extends Coordinate{
-    private Pane pane;
     private double size; // do dai canh map
     private final int spots ; //so o vuong moi hang va cot
     private double squareSize; // do dai mot o vuong
@@ -15,8 +14,7 @@ public class LineupMap extends Coordinate{
 
 
     public LineupMap(double x, double y, Pane pane, double size, int spots) {
-        super(x, y);
-        this.pane = pane;
+        super(x, y, pane);
         this.size = size;
         this.spots = spots;
         this.squareSize = size/spots;

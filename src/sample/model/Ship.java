@@ -19,7 +19,6 @@ public class Ship extends Coordinate{
     private int length; // number of cell
     private int vertical; // 0 horizontal, 1 vertical
     private double squareSize;
-    private Pane pane;
     private LineupMap lineupMap;
     private Rectangle r;
     private String s;
@@ -29,12 +28,11 @@ public class Ship extends Coordinate{
 
     //---------------------
     public Ship(double x, double y, int length, int vertical, double squareSize, LineupMap lineupMap, Pane myPane, String s) {
-        super(x, y);
+        super(x, y, myPane);
         this.length = length;
         this.vertical = vertical;
         this.squareSize = squareSize;
         this.lineupMap = lineupMap;
-        this.pane = myPane;
         this.r = new Rectangle();
         this.s = s;
         //------------------------------
