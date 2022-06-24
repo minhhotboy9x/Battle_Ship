@@ -3,6 +3,16 @@ package sample.model.data;
 public class Data {
     private String userName;
     private int highScore;
+    private int stt;
+
+    public int getStt() {
+        return stt;
+    }
+
+    public void setStt(int stt) {
+        this.stt = stt;
+    }
+
     public Data(){}
 
     public Data(String userName, int highScore) {

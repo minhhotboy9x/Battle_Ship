@@ -71,6 +71,7 @@ public class HighScore extends Application {
 
         nameCol.setCellValueFactory( new PropertyValueFactory<Data, String>("userName"));
         scoreCol.setCellValueFactory( new PropertyValueFactory<Data, Integer>("highScore"));
+        rankCol.setCellValueFactory( new PropertyValueFactory<Data, Integer>("stt"));
 
         table.setItems(danhSachKetQua);
         table.getColumns().addAll(rankCol , nameCol, scoreCol);

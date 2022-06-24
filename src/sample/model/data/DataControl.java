@@ -78,8 +78,17 @@ public class DataControl {
                 }
             }
         });
+        // thêm số thứ tự
+        for (int i = 0; i < datas.size(); i++) {
+            datas.get(i).setStt(i+1);
+        }
+
         return datas;
     }
+
+
+
+
 
     private Data createDataFromTMP(String tmp) {
         String[] tmps = tmp.split("\\|");
