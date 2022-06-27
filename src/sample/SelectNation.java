@@ -14,6 +14,9 @@ import javafx.stage.Stage;
 import static sample.Intro.soundButton;
 import static sample.Intro.soundButtonClick;
 
+import static sample.Intro.soundButton;
+import static sample.Intro.soundButtonClick;
+
 public class SelectNation extends Application {
     public static int nation = 1; // type of fleet
     @Override
@@ -25,12 +28,14 @@ public class SelectNation extends Application {
         //difficulty
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER);
-        hBox.setLayoutX(465);
-        hBox.setLayoutY(380);
+        hBox.setLayoutX(400);
+        hBox.setLayoutY(350);
         hBox.setSpacing(150);
 
         Button nation1 = new Button("nation1");
         Button nation2 = new Button("nation2");
+        nation1.setId("nation1");
+        nation2.setId("nation2");
         nation1.setOnAction(e->{
             nation = 1;
             toSetLineUp(e);
