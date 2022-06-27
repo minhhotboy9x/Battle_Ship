@@ -29,4 +29,5 @@ public abstract class ShipModel extends Coordinate {
 
     public double getWidth(){ return Math.max(length * (1-vertical) * squareSize, squareSize); }
 
+    public Rectangle getR(){return r;};
 }

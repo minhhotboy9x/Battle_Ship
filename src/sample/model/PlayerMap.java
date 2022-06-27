@@ -3,7 +3,9 @@ package sample.model;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import sample.Game;
 import sample.bot.Bot;
+import sample.model.graphic.ModelSpec;
 
 import java.util.ArrayList;
 
@@ -30,17 +32,9 @@ public class PlayerMap extends LineupMap {
             for (int i = idX; i < idX + Math.max(1, length * (1 - vertical)); i++)
                 for (int j = idY; j < idY + Math.max(1, length * vertical); j++) {
                     playerShip[i][j] = ship;
+                    stateCell[i][j] = 1;
                 }
         }
-    }
-
-
-    double getPosX(int idX){
-        return x + idX*super.getSquareSize();
-    }
-
-    double getPosY(int idY){
-        return y + idY*super.getSquareSize();
     }
 
     public boolean shot(int i, int j) // ban vao o i,j
@@ -53,20 +47,21 @@ public class PlayerMap extends LineupMap {
         if(playerShip[i][j]!=null) {
             playerShip[i][j].hit();
             Bot.map[i][j]=2;
-            if(playerShip[i][j].isAlive()==false) {
+            if(!playerShip[i][j].isAlive()) { //tau đắm
                 markDown(playerShip[i][j]);
                 remainingShip.remove(Integer.valueOf(playerShip[i][j].getLength()));
             }
             c = new Circle(posX+cen, posY+cen, ra, Color.rgb(178,34,34));
-            c.setStrokeWidth(0.0);
-
         }
         else {
             Bot.map[i][j]=1;
             c = new Circle(posX+cen, posY+cen, ra, Color.rgb(0,0,255));
-            c.setStrokeWidth(0.0);
         }
+        c.setStrokeWidth(0.0);
+        c.setViewOrder(1.0);
         pane.getChildren().add(c);
+        Game.turn = 0;
+
         return playerShip[i][j]!=null;
     }
 
@@ -80,4 +75,5 @@ public class PlayerMap extends LineupMap {
                 Bot.map[i][j]=3;
             }
     }
+
 }

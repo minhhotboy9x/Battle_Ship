@@ -1,6 +1,5 @@
 package sample.bot;
 
-import javafx.scene.control.Alert;
 import sample.model.PlayerMap;
 import sample.model.Point;
 import sample.model.graphic.ModelSpec;
@@ -22,8 +21,8 @@ public class Bot {
     public Bot(PlayerMap playerMap) {
         this.playerMap = playerMap;
         targetMode = false;
-        points = new ArrayList<Point>();
-        hittingPoints = new ArrayList<Point>();
+        points = new ArrayList<>();
+        hittingPoints = new ArrayList<>();
         map = new int[ModelSpec.mapSpots][ModelSpec.mapSpots];
 
         // chon cac diem dan cheo
@@ -96,8 +95,9 @@ public class Bot {
 
         points.remove(0);
         this.targetMode = this.playerMap.shot(x, y);
-        if(this.targetMode)
+        if(this.targetMode) {
             hittingPoints.add(new Point(x, y));
+        }
     }
 
     public void inTargetMode() {
@@ -114,11 +114,11 @@ public class Bot {
             int x=0, y=0;
             Random rand = new Random();
             int i = rand.nextInt(4);
-            int j = i+3;
-            for (int k=0; k<4; k++)
+            while(true)
             {
-                x = dx[(i+k)%4]+hittingPoints.get(0).getX();
-                y = dy[(i+k)%4]+hittingPoints.get(0).getY();
+                x = dx[(i+1)%4]+hittingPoints.get(0).getX();
+                y = dy[(i+1)%4]+hittingPoints.get(0).getY();
+                i=(i+1)%4;
                 if(ModelSpec.pointInMap(x, y) && map[x][y]==0)
                     break;
             }
@@ -172,29 +172,33 @@ public class Bot {
                     if(map[i][j]==2) {
                         hittingPoints.add(new Point(i, j));
                     }
-
             if(hittingPoints.isEmpty()) // van rong
                 this.targetMode = false;
-
         }
+
     }
     //---------------------------
-    public void playHard() {
-        if(points.isEmpty())
-            return;
-        //Random rand = new Random();
-
+    public void hard() {
         if(!targetMode)
             inHuntMode();
         else
             inTargetMode();
     }
-    public void playEasy() {
+    public void easy() {
         if(points.isEmpty())
             return;
         int x = points.get(0).getX();
         int y = points.get(0).getY();
         points.remove(0);
         this.targetMode = this.playerMap.shot(x, y);
+    }
+
+    public void play() {
+        if(mode==1){
+            easy();
+        }
+        else{
+            hard();
+        }
     }
 }

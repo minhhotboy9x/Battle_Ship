@@ -10,6 +10,7 @@ public class LineupMap extends Coordinate {
     private final int spots ; //so o vuong moi hang va cot
     private double squareSize; // do dai mot o vuong
     public int[][] stateCell; //0: ko co thuyen, 1: co (dung de xac dinh vi tri thuyen)
+    // cach dung 2 của stateCell: đã bắn, chưa bắn
     private Rectangle[][] grid;
 
     public LineupMap(double x, double y, Pane pane, double size, int spots) {
@@ -17,7 +18,7 @@ public class LineupMap extends Coordinate {
         this.size = size;
         this.spots = spots;
         this.squareSize = size/spots;
-        stateCell = new int[spots][spots];
+        this.stateCell = new int[spots][spots];
         grid = new Rectangle[spots][spots];
     }
 
@@ -49,15 +50,20 @@ public class LineupMap extends Coordinate {
         return size;
     }
 
-    public int getSpots() {
-        return spots;
-    }
-
     public Rectangle[][] getGrid() {
         return grid;
     }
 
     protected double getSquareSize() {
         return squareSize;
+    }
+
+
+    double getPosX(int idX){
+        return x + idX*squareSize;
+    }
+
+    double getPosY(int idY){
+        return y + idY*squareSize;
     }
 }

@@ -1,9 +1,9 @@
 package sample;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Button;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -11,10 +11,8 @@ import javafx.stage.Stage;
 import sample.model.LineupMap;
 import static sample.Intro.soundButton;
 import static sample.Intro.soundButtonClick;
-
 import sample.model.LineUpShip;
 import sample.model.graphic.ModelSpec;
-
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -65,7 +63,6 @@ public class SetLineup extends Application {
         TimerTask checkExecution = new TimerTask() {
             @Override
             public void run() {
-                //System.out.println(countShip);
                 //du thuyen -> enable readyButton
                 readyButton.setDisable(countShip != 5);
             }
@@ -75,6 +72,7 @@ public class SetLineup extends Application {
             Game game = new Game();
             game.getFleet(fleet);
             try {
+                checkThread.cancel();
                 game.start(primaryStage);
             } catch (Exception exception) {
                 exception.printStackTrace();
