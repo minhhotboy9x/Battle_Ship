@@ -21,5 +21,18 @@ public class ModelSpec {
 
     public static double posLineUpRectX = 770; //vi tri linupMap
     public static double posLineUpRectY = 80; //vi tri lineupMap
+    //----------------
+
+    //-----game
+    public static double posPlayerMapX = 100; //vi tri playerMap
+    public static double posPlayerMapY = 275; //vi tri playerMap
+    public static double gameMapSize = 400; // chieu dai game map
+    public static double gameMapSquareSize = gameMapSize / mapSpots; //40
+    public static double posBotMapX = 780; //vi tri botMap
+    public static double posBotMapY = 275; //vi tri botMap
     //
+
+    public static boolean pointInMap(int x, int y){
+        return 0<=x && x < mapSpots && 0<=y && y<mapSpots;
+    }
 }

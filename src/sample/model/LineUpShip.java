@@ -1,5 +1,6 @@
 package sample.model;
 
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -7,36 +8,28 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Pair;
 import sample.SelectNation;
 import sample.SetLineup;
+import sample.model.base_class.ShipModel;
 import sample.model.graphic.ModelSpec;
 
-import static sample.model.graphic.ModelSpec.mapSpots;
 
-public class Ship extends Coordinate{
-    // 1*length or length*1
-
-    private int length; // number of cell
-    private int vertical; // 0 horizontal, 1 vertical
-    private double squareSize;
+public class LineUpShip extends ShipModel {
     private LineupMap lineupMap;
-    private Rectangle r;
     private String s;
     //----xu ly mouse----------
     private double mouseAnchorX; // use for drag and press ship
     private double mouseAnchorY; // use for drag and press ship
 
     //---------------------
-    public Ship(double x, double y, int length, int vertical, double squareSize, LineupMap lineupMap, Pane myPane, String s) {
-        super(x, y, myPane);
-        this.length = length;
-        this.vertical = vertical;
-        this.squareSize = squareSize;
+    public LineUpShip(double x, double y, int length, int vertical, double squareSize, LineupMap lineupMap, Pane myPane, String s) {
+        super(x, y, myPane, length, vertical, squareSize);
         this.lineupMap = lineupMap;
-        this.r = new Rectangle();
         this.s = s;
         //------------------------------
-        this.setImage(s);
+        this.setImage();
+        this.r.setEffect(new DropShadow(10, Color.RED));
         draw(x, y); //ve ra container ngay khi khoi tao
         //---------------------
         this.r.setOnMousePressed(event -> pressedMouse(event)); // giu chuot
@@ -55,19 +48,14 @@ public class Ship extends Coordinate{
     }
     public void changeShape() { //xoay tau
         vertical = 1-vertical;
-        setImage(s);
+        setImage();
         draw(x, y);
     }
     public void changeShape(double x, double y) { //xoay tau
         vertical = 1-vertical;
-        setImage(s);
+        setImage();
         draw(x, y);
     }
-    //------set image-------------------
-
-    //---------------------------------
-    public double getHeight(){ return Math.max(length * vertical * squareSize, squareSize); }
-    public double getWidth(){ return Math.max(length * (1-vertical) * squareSize, squareSize); }
     //----------------------------------------
     public boolean inMap() { //check if ship in ship is in lineupMap
         double beginX = this.r.getTranslateX();
@@ -84,8 +72,8 @@ public class Ship extends Coordinate{
         return (beginX>=lineupMap.getX() && beginY >=lineupMap.getY())
                 && (endX<=lineupMap.getX()+lineupMap.getSize() && endY<=lineupMap.getY()+lineupMap.getSize());
     }
-    public boolean inMap(int idX, int idY) { //check if ship in ship is in lineupMap by check id
-        double endX, endY;
+    public boolean inMap(int idX, int idY) { //check if ship is in lineupMap by check id
+        int endX, endY;
         if(vertical==1){
             endX = idX ;
             endY = idY + length - 1;
@@ -94,9 +82,9 @@ public class Ship extends Coordinate{
             endX = idX + length - 1;
             endY = idY;
         }
-        return  0<= idX && idX < mapSpots && 0<= idY && idY < mapSpots
-                && 0<= endX && endX < mapSpots && 0<= endY && endY < mapSpots ;
+        return  ModelSpec.pointInMap(idX, idY) && ModelSpec.pointInMap(endX, endY);
     }
+
     public boolean isCollision(int idX, int idY){
         for(int i=idX; i<idX + Math.max(1, length*(1-vertical)); i++)
             for (int j=idY; j<idY + Math.max(1, length*vertical); j++){
@@ -106,13 +94,28 @@ public class Ship extends Coordinate{
             }
         return false;
     }
-    //--------------------------------------------
-    public void setImage(String s) { // set img for ship
-        s = "type"+ SelectNation.nation + "/" + s + vertical;
+
+    public Pair<Integer, Integer> getIdMap(){
+        if(!inMap())
+            return null;
+        int idX = (int) ((r.getTranslateX() - lineupMap.getX()) / squareSize); //idX of lineupMap
+        int idY = (int) ((r.getTranslateY() - lineupMap.getY()) / squareSize); //idY of lineupMap
+        return new Pair<Integer,Integer>(idX, idY);
+    }
+
+    //------------set image-------------------
+    public void setImage() { // set img for ship
+        String t = "type"+ SelectNation.nation + "/" + s + vertical;
         Image image = new Image(
-                Ship.class.getResource("../../resource/image/ship/"+ s +".png").toString());
+                LineUpShip.class.getResource("../../resource/image/ship/"+ t +".png").toString());
         r.setFill(new ImagePattern(image));
     }
+
+    public Image getImage() { //lấy image của ship
+        String t = "type"+ SelectNation.nation + "/" + s + vertical;
+        return new Image(LineUpShip.class.getResource("../../resource/image/ship/"+ t +".png").toString());
+    }
+
     //-----------------method for this.r-----------------
     private void draggedMouse(MouseEvent event) {
         if(event.getButton() == MouseButton.SECONDARY) //neu chuọt phai thi bo
@@ -214,5 +217,7 @@ public class Ship extends Coordinate{
             this.changeShape(vX , vY);
         }
     }
+
     //-----------------------------------------------------------------
+
 }
