@@ -76,13 +76,13 @@ public class Game {
                     win=1;
                 if(win!=0) { //neu co kq thang thua -> end thread
                     ok = 0;
-                    //turn = 2;
-                    System.out.println(win);
+                    //System.out.println(win);
                     botMap.setPressDisable();
                     for(GameShip ship: botMap.botFleet)
                         ship.showUp();
                     nextButton.setVisible(true);
                     game.cancel();
+                    return;
                 }
 
                 if(turn == 0) {
