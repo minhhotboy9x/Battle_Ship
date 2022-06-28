@@ -61,7 +61,7 @@ public class Game {
         Button nextButton = new Button("Next"); // nút chuyển màn hình
         nextButton.setTranslateX(600);
         nextButton.setTranslateY(300);
-        //nextButton.setVisible(false);
+        nextButton.setVisible(false);
         //---------game on------------
         reset();
         ok=0;
@@ -75,7 +75,9 @@ public class Game {
                 if(botMap.botFleet.size()==0)
                     win=1;
                 if(win!=0) { //neu co kq thang thua -> end thread
-                    ok=0;
+                    ok = 0;
+                    //turn = 2;
+                    System.out.println(win);
                     botMap.setPressDisable();
                     for(GameShip ship: botMap.botFleet)
                         ship.showUp();
@@ -86,7 +88,7 @@ public class Game {
                 if(turn == 0) {
                     botMap.setPressEnable(); // enable press action
                 }
-                else {
+                else if(turn == 1){
                     botMap.setPressDisable(); // disable press action
                     try {
                         waitForRunLater(bot);
@@ -98,13 +100,15 @@ public class Game {
 
         };
         game.schedule(gameStart, 100, 1); //chay game
-        Button testButton = new Button("test"); // nút chuyển màn hình
+        /*Button testButton = new Button("test"); // nút chuyển màn hình
         testButton.setTranslateX(300);
         testButton.setTranslateY(300);
         testButton.setOnAction(e->{
             System.out.println(playerMap.remainingShip.size()+" "+
                     botMap.botFleet.size()+" "+ok);
         });
+        root.getChildren().addAll(testButton);
+        */
         //----------------------------
         nextButton.setOnAction(e -> { //action for switch scene
             HighScore highScore = new HighScore();
@@ -114,7 +118,6 @@ public class Game {
                 ioException.printStackTrace();
             }
         });
-        root.getChildren().addAll(testButton);
         //--------------
         primaryStage.setOnHidden(e->{ // nếu đóng cửa sổ -> delete thread
             game.cancel();

@@ -22,7 +22,7 @@ public class BotMap extends LineupMap {
     }
 
     public void setPressDisable() {
-        System.out.println("setPressDisable");
+        System.out.println("setPressDisable "+ Game.turn+" "+Game.win);
         Rectangle grid[][] = super.getGrid();
         for (int i = 0; i < ModelSpec.mapSpots; i++)
             for (int j = 0; j < ModelSpec.mapSpots; j++) {
@@ -30,7 +30,8 @@ public class BotMap extends LineupMap {
             }
     }
 
-    public void setPressEnable(){
+    public void setPressEnable() {
+        System.out.println("setPressEnable "+ Game.turn+" "+Game.win);
         Rectangle grid[][] = super.getGrid();
         for (int i = 0; i < ModelSpec.mapSpots; i++)
             for (int j = 0; j < ModelSpec.mapSpots; j++)

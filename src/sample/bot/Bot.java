@@ -11,7 +11,7 @@ import java.util.Random;
 public class Bot {
     public static int mode = 2; //che do 1: de, 2: kho
     public static int map[][] ; //get info of map when playing
-    // 0 chua ban, 1 ban hut, 2 ban trung, 3 thuyen bi ha
+    // 0 chua ban, 1 ban hut, 2 ban trung, 3 thuyen bi ha, 4 o phe vat
     ArrayList<Point> points, hittingPoints;
     public boolean targetMode; //mode play
     PlayerMap playerMap;
@@ -77,6 +77,7 @@ public class Bot {
             for (int j = 0; j < spots; j++)
                 if (cal1[i][j] < Collections.min(playerMap.remainingShip) && cal2[i][j] < Collections.min(playerMap.remainingShip)) {
                     points.remove(new Point(i, j));
+                    map[i][j]=4; //o phe vat
                 }
         }
     }
