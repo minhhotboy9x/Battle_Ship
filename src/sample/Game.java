@@ -26,8 +26,8 @@ public class Game {
     public ArrayList<GameShip> playerFleet;
     public static int turn = 0; //0: player's turn, 1: bot's turn
     public static int win = 0; //1 win, 2 lose
-    Pane root = new Pane();
-    public static int ok=0;
+    private final Pane root = new Pane();
+
     public void start(Stage primaryStage) {
         Scene scene = new Scene(root, 1280, 720, false, SceneAntialiasing.BALANCED);
         scene.getStylesheets().add("sample/css/style.css");
@@ -55,33 +55,33 @@ public class Game {
 
         //-----tao bot---------
         Bot bot = new Bot(playerMap);
+        //-----------------------------
 
-        //--------------------
         //-------chuyen man hinh---------
         Button nextButton = new Button("Next"); // nút chuyển màn hình
         nextButton.setTranslateX(600);
         nextButton.setTranslateY(300);
         nextButton.setVisible(false);
+        //--------------------
+
         //---------game on------------
-        reset();
-        ok=0;
+        reset(); //win và turn là 2 biến static nên cần đặt lại
+
         Timer game = new Timer("game");
         TimerTask gameStart = new TimerTask() { // tao thread chay game
             @Override
             public void run() {
-                ok=1;
-                if(playerMap.remainingShip.size()==0)
+                if(playerMap.remainingShip.size()==0) //lose
                     win=2;
-                if(botMap.botFleet.size()==0)
+                if(botMap.botFleet.size()==0) //win
                     win=1;
                 if(win!=0) { //neu co kq thang thua -> end thread
-                    ok = 0;
                     //System.out.println(win);
                     botMap.setPressDisable();
                     for(GameShip ship: botMap.botFleet)
                         ship.showUp();
                     nextButton.setVisible(true);
-                    game.cancel();
+                    game.cancel(); //cancel timer not executing thread
                     return;
                 }
 
@@ -90,17 +90,21 @@ public class Game {
                 }
                 else if(turn == 1){
                     botMap.setPressDisable(); // disable press action
+                    //bot.play(); exception: Not on FX application thread; currentThread = game
+                    // => use Platform.runlater
                     try {
                         waitForRunLater(bot);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+
                 }
             }
 
         };
-        game.schedule(gameStart, 100, 1); //chay game
-        /*Button testButton = new Button("test"); // nút chuyển màn hình
+        game.schedule(gameStart, 100, 1); //chay thread game
+        //---------------------------------------
+        /*Button testButton = new Button("test");
         testButton.setTranslateX(300);
         testButton.setTranslateY(300);
         testButton.setOnAction(e->{
@@ -109,6 +113,7 @@ public class Game {
         });
         root.getChildren().addAll(testButton);
         */
+
         //----------------------------
         nextButton.setOnAction(e -> { //action for switch scene
             HighScore highScore = new HighScore();
@@ -118,7 +123,7 @@ public class Game {
                 ioException.printStackTrace();
             }
         });
-        //--------------
+        //--------------------
         primaryStage.setOnHidden(e->{ // nếu đóng cửa sổ -> delete thread
             game.cancel();
         });
@@ -149,11 +154,21 @@ public class Game {
         turn = 0;
     }
     public static void waitForRunLater(Bot bot) throws InterruptedException {
+        //dung phuong phap den bao
         Semaphore semaphore = new Semaphore(0);
+        /*
+        runLater. Run the specified Runnable on the JavaFX Application Thread
+        at some unspecified time in the future.
+        This method, which may be called from any thread,
+        will post the Runnable to an event queue and then return immediately to the caller.
+        The Runnables are executed in the order they are posted.
+         */
         Platform.runLater(() -> {
             bot.play();
-            semaphore.release();
+            semaphore.release(); //permit++;
         });
         semaphore.acquire();
+        //if(permits<=0) -> block
+        //else invoke acquire()
     }
 }
