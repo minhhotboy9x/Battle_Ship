@@ -13,11 +13,12 @@ import sample.model.GameShip;
 import sample.model.LineUpShip;
 import sample.model.PlayerMap;
 import sample.model.graphic.ModelSpec;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
 
 import static sample.Intro.soundButton;
 
@@ -26,7 +27,7 @@ public class Game {
     public static int turn = 0; //0: player's turn, 1: bot's turn
     public static int win = 0; //1 win, 2 lose
     Pane root = new Pane();
-
+    public static int ok=0;
     public void start(Stage primaryStage) {
         Scene scene = new Scene(root, 1280, 720, false, SceneAntialiasing.BALANCED);
         scene.getStylesheets().add("sample/css/style.css");
@@ -54,55 +55,72 @@ public class Game {
 
         //-----tao bot---------
         Bot bot = new Bot(playerMap);
+
         //--------------------
-
+        //-------chuyen man hinh---------
+        Button nextButton = new Button("Next"); // nút chuyển màn hình
+        nextButton.setTranslateX(600);
+        nextButton.setTranslateY(300);
+        //nextButton.setVisible(false);
         //---------game on------------
-
+        reset();
+        ok=0;
         Timer game = new Timer("game");
-        TimerTask gameStart = new TimerTask() { // tao luong chay game
+        TimerTask gameStart = new TimerTask() { // tao thread chay game
             @Override
             public void run() {
-                if(win!=0) {
+                ok=1;
+                if(playerMap.remainingShip.size()==0)
+                    win=2;
+                if(botMap.botFleet.size()==0)
+                    win=1;
+                if(win!=0) { //neu co kq thang thua -> end thread
+                    ok=0;
                     botMap.setPressDisable();
-                    for(GameShip ship: botMap.botFleet){
+                    for(GameShip ship: botMap.botFleet)
                         ship.showUp();
-                    }
+                    nextButton.setVisible(true);
                     game.cancel();
                 }
 
                 if(turn == 0) {
-                    botMap.setPressEnable();
+                    botMap.setPressEnable(); // enable press action
                 }
                 else {
-                    botMap.setPressDisable();
+                    botMap.setPressDisable(); // disable press action
                     try {
                         waitForRunLater(bot);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-                if(PlayerMap.remainingShip.size()==0 || botMap.botFleet.size()==0)
-                {
-                    botMap.setPressDisable();
-                    game.cancel();
-                    if(PlayerMap.remainingShip.size()==0)
-                        win=2;
-                    else
-                        win=1;
-                }
             }
 
         };
         game.schedule(gameStart, 100, 1); //chay game
-        primaryStage.setOnHidden(e->{
-            game.cancel();
-            Platform.exit();
+        Button testButton = new Button("test"); // nút chuyển màn hình
+        testButton.setTranslateX(300);
+        testButton.setTranslateY(300);
+        testButton.setOnAction(e->{
+            System.out.println(playerMap.remainingShip.size()+" "+
+                    botMap.botFleet.size()+" "+ok);
         });
         //----------------------------
-
+        nextButton.setOnAction(e -> { //action for switch scene
+            HighScore highScore = new HighScore();
+            try {
+                highScore.start(primaryStage);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        root.getChildren().addAll(testButton);
         //--------------
+        primaryStage.setOnHidden(e->{ // nếu đóng cửa sổ -> delete thread
+            game.cancel();
+        });
         primaryStage.setResizable(false);
-        root.getChildren().addAll(soundButton, Intro.nameLabel);
+        root.getChildren().addAll(soundButton, Intro.nameLabel, nextButton);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -123,7 +141,10 @@ public class Game {
             playerFleet.add(playerShip);
         }
     }
-
+    public static void reset() {// set lai bien static
+        win = 0;
+        turn = 0;
+    }
     public static void waitForRunLater(Bot bot) throws InterruptedException {
         Semaphore semaphore = new Semaphore(0);
         Platform.runLater(() -> {
@@ -131,6 +152,5 @@ public class Game {
             semaphore.release();
         });
         semaphore.acquire();
-
     }
 }

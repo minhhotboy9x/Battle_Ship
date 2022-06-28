@@ -92,19 +92,19 @@
     -fx-padding: 2 0 2 10px;
     -fx-alignment: center;
 }
-.table-row-cell: hover {
+.table-row-cell:hover {
     -fx-background-color: #93f9b911;
     -fx-text-background-color: red;
 }
-.table-row-cell: selected {
+.table-row-cell:selected {
     -fx-text-background-color:red;
 }
-.table-row-cell: odd{
+.table-row-cell:odd{
     -fx-background-color: #93f9b911;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em;
 }
-.table-row-cell: even{
+.table-row-cell:even{
     -fx-background-color: #1dbbdd11;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em;
@@ -128,7 +128,7 @@
 .table-view .virtual-flow .scroll-bar:horizontal .thumb {
     -fx-background-color:  linear-gradient(to right, #1dbbdd44, #93f9b944);
 }
-.table-row-cell: highlighted {
+.table-row-cell:highlighted {
     -fx-background-color: #81c483;
     -fx-background-radius: 15px;
 }
@@ -150,7 +150,7 @@
 .table-view .virtual-flow .scroll-bar:horizontal .thumb {
     -fx-background-color:  linear-gradient(to right, #1dbbdd44, #93f9b944);
 }
-.table-row-cell: highlighted {
+.table-row-cell:highlighted {
     -fx-background-color: #81c483;
     -fx-background-radius: 15px;
 }

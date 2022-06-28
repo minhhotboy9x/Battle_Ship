@@ -22,6 +22,7 @@ public class BotMap extends LineupMap {
     }
 
     public void setPressDisable() {
+        System.out.println("setPressDisable");
         Rectangle grid[][] = super.getGrid();
         for (int i = 0; i < ModelSpec.mapSpots; i++)
             for (int j = 0; j < ModelSpec.mapSpots; j++) {

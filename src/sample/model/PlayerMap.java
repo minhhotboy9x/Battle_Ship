@@ -11,11 +11,12 @@ import java.util.ArrayList;
 
 public class PlayerMap extends LineupMap {
     public GameShip [][] playerShip;
-    public static ArrayList<Integer> remainingShip = new ArrayList<>(); //luu do dai cua thuyen con lai tren map
+    public ArrayList<Integer> remainingShip; //luu do dai cua thuyen con lai tren map
 
     public PlayerMap(double x, double y, Pane pane, double size, int spots) {
         super(x, y, pane, size, spots);
         playerShip = new GameShip[spots][spots];
+        remainingShip = new ArrayList<>();
         remainingShip.add(5);
         remainingShip.add(4);
         remainingShip.add(3);

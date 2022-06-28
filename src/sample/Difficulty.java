@@ -14,8 +14,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.bot.Bot;
-
-
 import static sample.Intro.soundButton;
 import static sample.Intro.soundButtonClick;
 

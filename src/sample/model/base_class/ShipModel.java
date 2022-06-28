@@ -2,7 +2,6 @@ package sample.model.base_class;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
-import sample.model.Coordinate;
 
 public abstract class ShipModel extends Coordinate {
     protected int length; // number of cell

@@ -75,7 +75,7 @@ public class Bot {
 
         for(int i=0; i<spots; i++) {
             for (int j = 0; j < spots; j++)
-                if (cal1[i][j] < Collections.min(PlayerMap.remainingShip) && cal2[i][j] < Collections.min(PlayerMap.remainingShip)) {
+                if (cal1[i][j] < Collections.min(playerMap.remainingShip) && cal2[i][j] < Collections.min(playerMap.remainingShip)) {
                     points.remove(new Point(i, j));
                 }
         }
