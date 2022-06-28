@@ -95,4 +95,16 @@ public class DataControl {
         Data data = new Data(tmps[0], Integer.parseInt(tmps[1]));
         return data;
     }
+
+
+    // reset file
+    public void resetFile(String fileName) throws IOException{
+        File file = new File(fileName);
+        if (file.exists()) {
+            file.delete();
+        }
+        openFileToWrite(fileName);
+        closeFileAfterWrite(fileName);
+    }
+
 }

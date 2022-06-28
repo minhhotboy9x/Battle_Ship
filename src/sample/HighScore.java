@@ -67,8 +67,7 @@ public class HighScore extends Application {
         TableColumn rankCol = new TableColumn("Ranking");
         rankCol.setMinWidth(120);
         rankCol.setMaxWidth(120);
-
-
+        // nhan gia tri cho cac cot trong table
         nameCol.setCellValueFactory( new PropertyValueFactory<Data, String>("userName"));
         scoreCol.setCellValueFactory( new PropertyValueFactory<Data, Integer>("highScore"));
         rankCol.setCellValueFactory( new PropertyValueFactory<Data, Integer>("stt"));
@@ -84,11 +83,6 @@ public class HighScore extends Application {
         table.setFixedCellSize(25);
        // table.prefHeightProperty().bind(Bindings.size(table.getItems()).multiply(table.getFixedCellSize()).add(20));
         //----------------
-
-        //danh so thu tu het hang dau
-
-
-
 
 
         //set return button
@@ -115,8 +109,35 @@ public class HighScore extends Application {
             }
         });
 
+        // set button reset diem
+        Image resetImage = new Image("resource/image/button/reset.png");
+        ImageView resetImageView = new ImageView(resetImage);
+        resetImageView.setFitWidth(50);
+        resetImageView.setFitHeight(50);
 
-        root.getChildren().addAll(label, table, returnButton);
+        Button resetButton = new Button("", resetImageView);
+        resetButton.setId("resetButton");
+        resetButton.setLayoutX(340);
+        resetButton.setLayoutY(250);
+        resetButton.setBackground(null);
+        resetButton.setOnAction(e->{
+            try {
+                dataControl.resetFile(dataFileName);
+                // thuc hien xoa cac noi dung cua bang
+                for ( int i = 0; i<table.getItems().size(); i++) {
+                    table.getItems().clear();
+                }
+
+
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
+
+
+
+
+        root.getChildren().addAll(label, table, returnButton, resetButton);
 
         stage.setResizable(false);
         stage.sizeToScene();
