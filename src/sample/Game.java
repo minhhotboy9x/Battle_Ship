@@ -27,7 +27,7 @@ public class Game {
     public static int turn = 0; //0: player's turn, 1: bot's turn
     public static int win = 0; //1 win, 2 lose
     Pane root = new Pane();
-
+    public static int ok=0;
     public void start(Stage primaryStage) {
         Scene scene = new Scene(root, 1280, 720, false, SceneAntialiasing.BALANCED);
         scene.getStylesheets().add("sample/css/style.css");
@@ -55,8 +55,7 @@ public class Game {
 
         //-----tao bot---------
         Bot bot = new Bot(playerMap);
-        win = 0; // set lai bien static
-        turn = 0; //
+
         //--------------------
         //-------chuyen man hinh---------
         Button nextButton = new Button("Next"); // nút chuyển màn hình
@@ -64,21 +63,19 @@ public class Game {
         nextButton.setTranslateY(300);
         //nextButton.setVisible(false);
         //---------game on------------
-        for(int j=0;j<ModelSpec.mapSpots;j++){
-            for(int i=0;i<ModelSpec.mapSpots;i++)
-                System.out.print(Bot.map[i][j]+" ");
-            System.out.println();
-        }
-        System.out.println(win+"________________");
+        reset();
+        ok=0;
         Timer game = new Timer("game");
         TimerTask gameStart = new TimerTask() { // tao thread chay game
             @Override
             public void run() {
-                if(PlayerMap.remainingShip.size()==0)
+                ok=1;
+                if(playerMap.remainingShip.size()==0)
                     win=2;
                 if(botMap.botFleet.size()==0)
                     win=1;
                 if(win!=0) { //neu co kq thang thua -> end thread
+                    ok=0;
                     botMap.setPressDisable();
                     for(GameShip ship: botMap.botFleet)
                         ship.showUp();
@@ -101,6 +98,13 @@ public class Game {
 
         };
         game.schedule(gameStart, 100, 1); //chay game
+        Button testButton = new Button("test"); // nút chuyển màn hình
+        testButton.setTranslateX(300);
+        testButton.setTranslateY(300);
+        testButton.setOnAction(e->{
+            System.out.println(playerMap.remainingShip.size()+" "+
+                    botMap.botFleet.size()+" "+ok);
+        });
         //----------------------------
         nextButton.setOnAction(e -> { //action for switch scene
             HighScore highScore = new HighScore();
@@ -110,7 +114,7 @@ public class Game {
                 ioException.printStackTrace();
             }
         });
-
+        root.getChildren().addAll(testButton);
         //--------------
         primaryStage.setOnHidden(e->{ // nếu đóng cửa sổ -> delete thread
             game.cancel();
@@ -137,7 +141,10 @@ public class Game {
             playerFleet.add(playerShip);
         }
     }
-
+    public static void reset() {// set lai bien static
+        win = 0;
+        turn = 0;
+    }
     public static void waitForRunLater(Bot bot) throws InterruptedException {
         Semaphore semaphore = new Semaphore(0);
         Platform.runLater(() -> {
@@ -145,6 +152,5 @@ public class Game {
             semaphore.release();
         });
         semaphore.acquire();
-
     }
 }
