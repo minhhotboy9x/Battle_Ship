@@ -60,6 +60,7 @@ public class SetLineup extends Application {
         readyButton.setViewOrder(2.0);
 
         Timer checkThread = new Timer("CheckCountShip");
+        countShip = 0;
         TimerTask checkExecution = new TimerTask() {
             @Override
             public void run() {
@@ -69,6 +70,7 @@ public class SetLineup extends Application {
         };
 
         readyButton.setOnAction(e->{ //chuyen game
+            countShip = 0;
             Game game = new Game();
             game.getFleet(fleet);
             try {

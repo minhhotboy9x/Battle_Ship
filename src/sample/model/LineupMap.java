@@ -3,7 +3,7 @@ package sample.model;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import sample.model.Coordinate;
+import sample.model.base_class.Coordinate;;
 
 public class LineupMap extends Coordinate {
     private double size; // do dai canh map

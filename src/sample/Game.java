@@ -13,11 +13,12 @@ import sample.model.GameShip;
 import sample.model.LineUpShip;
 import sample.model.PlayerMap;
 import sample.model.graphic.ModelSpec;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
 
 import static sample.Intro.soundButton;
 
@@ -54,55 +55,68 @@ public class Game {
 
         //-----tao bot---------
         Bot bot = new Bot(playerMap);
+        win = 0; // set lai bien static
+        turn = 0; //
         //--------------------
-
+        //-------chuyen man hinh---------
+        Button nextButton = new Button("Next"); // nút chuyển màn hình
+        nextButton.setTranslateX(600);
+        nextButton.setTranslateY(300);
+        //nextButton.setVisible(false);
         //---------game on------------
-
+        for(int j=0;j<ModelSpec.mapSpots;j++){
+            for(int i=0;i<ModelSpec.mapSpots;i++)
+                System.out.print(Bot.map[i][j]+" ");
+            System.out.println();
+        }
+        System.out.println(win+"________________");
         Timer game = new Timer("game");
-        TimerTask gameStart = new TimerTask() { // tao luong chay game
+        TimerTask gameStart = new TimerTask() { // tao thread chay game
             @Override
             public void run() {
-                if(win!=0) {
+                if(PlayerMap.remainingShip.size()==0)
+                    win=2;
+                if(botMap.botFleet.size()==0)
+                    win=1;
+                if(win!=0) { //neu co kq thang thua -> end thread
                     botMap.setPressDisable();
-                    for(GameShip ship: botMap.botFleet){
+                    for(GameShip ship: botMap.botFleet)
                         ship.showUp();
-                    }
+                    nextButton.setVisible(true);
                     game.cancel();
                 }
 
                 if(turn == 0) {
-                    botMap.setPressEnable();
+                    botMap.setPressEnable(); // enable press action
                 }
                 else {
-                    botMap.setPressDisable();
+                    botMap.setPressDisable(); // disable press action
                     try {
                         waitForRunLater(bot);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-                if(PlayerMap.remainingShip.size()==0 || botMap.botFleet.size()==0)
-                {
-                    botMap.setPressDisable();
-                    game.cancel();
-                    if(PlayerMap.remainingShip.size()==0)
-                        win=2;
-                    else
-                        win=1;
-                }
             }
 
         };
         game.schedule(gameStart, 100, 1); //chay game
-        primaryStage.setOnHidden(e->{
-            game.cancel();
-            Platform.exit();
-        });
         //----------------------------
+        nextButton.setOnAction(e -> { //action for switch scene
+            HighScore highScore = new HighScore();
+            try {
+                highScore.start(primaryStage);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
 
         //--------------
+        primaryStage.setOnHidden(e->{ // nếu đóng cửa sổ -> delete thread
+            game.cancel();
+        });
         primaryStage.setResizable(false);
-        root.getChildren().addAll(soundButton, Intro.nameLabel);
+        root.getChildren().addAll(soundButton, Intro.nameLabel, nextButton);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
