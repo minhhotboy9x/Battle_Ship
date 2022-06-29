@@ -38,32 +38,30 @@ public class BotMap extends LineupMap {
                 if(super.stateCell[i][j]==0) {
                 int x = i;
                 int y = j;
-                grid[i][j].setOnMousePressed(e->shot(e, x, y));
+                grid[i][j].setOnMousePressed(e->shoot(e, x, y));
             }
     }
 
-    public void shot(MouseEvent event, int i, int j) {
+    public void shoot(MouseEvent event, int i, int j) {
         Rectangle[][] grid = super.getGrid();
         grid[i][j].setOnMousePressed(null);
         double posX = getPosX(i);
         double posY = getPosY(j);
         double ra = super.getSquareSize()/4;
         double cen = super.getSquareSize()/2;
-        Circle c;
-        if(playerShip[i][j]!=null) {
+        Shoot c = new Shoot(posX+cen, posY+cen, ra, pane); //tạo một vien đạn
+        if(playerShip[i][j]!=null) { // hit
             playerShip[i][j].hit();
             if(!playerShip[i][j].isAlive()) { //tàu đắm -> hien tau len map
                 playerShip[i][j].showUp();
                 botFleet.remove(playerShip[i][j]);
             }
-            c = new Circle(posX+cen, posY+cen, ra, Color.rgb(178,34,34));
+            c.draw("hit");
         }
-        else {
-            c = new Circle(posX+cen, posY+cen, ra, Color.rgb(0,0,255));
+        else { // miss
+            c.draw("miss");
         }
         super.stateCell[i][j]=1;
-        c.setStrokeWidth(0.0);
-        pane.getChildren().add(c);
         Game.turn = 1;
     }
 

@@ -38,13 +38,13 @@ public class PlayerMap extends LineupMap {
         }
     }
 
-    public boolean shot(int i, int j) // ban vao o i,j
+    public boolean shoot(int i, int j) // ban vao o i,j
     {
         double posX = getPosX(i);
         double posY = getPosY(j);
         double ra = super.getSquareSize()/4;
         double cen = super.getSquareSize()/2;
-        Circle c;
+        Shoot c = new Shoot(posX+cen, posY+cen, ra, pane); //tạo một vien đạn
         if(playerShip[i][j]!=null) {
             playerShip[i][j].hit();
             Bot.map[i][j]=2;
@@ -52,15 +52,12 @@ public class PlayerMap extends LineupMap {
                 markDown(playerShip[i][j]);
                 remainingShip.remove(Integer.valueOf(playerShip[i][j].getLength()));
             }
-            c = new Circle(posX+cen, posY+cen, ra, Color.rgb(178,34,34));
+            c.draw("hit");
         }
         else {
             Bot.map[i][j]=1;
-            c = new Circle(posX+cen, posY+cen, ra, Color.rgb(0,0,255));
+            c.draw("miss");
         }
-        c.setStrokeWidth(0.0);
-        c.setViewOrder(1.0);
-        pane.getChildren().add(c);
         Game.turn = 0;
 
         return playerShip[i][j]!=null;
