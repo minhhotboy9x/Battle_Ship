@@ -17,11 +17,13 @@
     -fx-pref-height: 65px;
     -fx-pref-width: 200px;
 }
-#playButton:hover, #highScoreButton:hover, #exitButton:hover {
+#playButton:hover, #highScoreButton:hover, #exitButton:hover,
+#nation1:hover, #nation2:hover{
     -fx-border-color: gray;
     -fx-text-fill: white;
 }
-#playButton:pressed, #highScoreButton:pressed, #exitButton:pressed {
+#playButton:pressed, #highScoreButton:pressed, #exitButton:pressed,
+#nation1:pressed, #nation2:pressed{
     -fx-background-color: #235891;
     -fx-background-color: linear-gradient(to bottom, #F15412, #B20600);
 }
