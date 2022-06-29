@@ -1,11 +1,8 @@
 package sample.model;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import sample.Game;
 import sample.bot.Bot;
-import sample.model.graphic.ModelSpec;
 
 import java.util.ArrayList;
 
