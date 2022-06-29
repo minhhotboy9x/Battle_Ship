@@ -51,24 +51,24 @@ public class Bot {
 
         for(int i=0; i<spots; i++){
             for(int j=0; j<spots; j++) {
-                if(this.map[i][j] == 0)
+                if(this.map[i][j] == 0 || this.map[i][j] == 2)
                     cal1[i][j] = 1 + cal1[i][Math.max(0,j-1)];
             }
 
             for(int j=spots-2; j>=0; j--) {
-                if(this.map[i][j] == 0)
+                if(this.map[i][j] == 0 || this.map[i][j] == 2)
                     cal1[i][j] = Math.max(cal1[i][j], cal1[i][j+1]);
             }
         }
 
         for(int j=0; j<spots; j++){
             for(int i=0; i<spots; i++) {
-                if(this.map[i][j] == 0)
+                if(this.map[i][j] == 0 || this.map[i][j] == 2)
                     cal2[i][j] = 1 + cal2[Math.max(0, i-1)][j];
             }
 
             for(int i=spots-2; i>=0; i--) {
-                if(this.map[i][j] == 0)
+                if(this.map[i][j] == 0 || this.map[i][j] == 2)
                     cal2[i][j] = Math.max(cal2[i][j], cal2[i+1][j]);
             }
         }
