@@ -1,10 +1,10 @@
 package sample.model;
 
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import sample.Game;
 import sample.model.graphic.ModelSpec;
 
@@ -15,36 +15,53 @@ public class BotMap extends LineupMap {
     // view order: map:2, ship,3, ship sap,1
     public GameShip [][] playerShip;
     public ArrayList<GameShip> botFleet;
+    public Button[][] cell; // dung button ve bang de styling cho de (do code au)
+
     public BotMap(double x, double y, Pane pane, double size, int spots) {
         super(x, y, pane, size, spots);
         playerShip = new GameShip[spots][spots];
         botFleet = new ArrayList<>();
+        cell = new Button[spots][spots];
+    }
+
+    public void drawMap() {
+        int spots = ModelSpec.mapSpots;
+        double squareSize = super.getSquareSize();
+        for(int i=0;i<spots;i++)
+            for(int j=0;j<spots;j++) {
+                Button btn = new Button();
+                btn.setTranslateX(super.x + squareSize*i);
+                btn.setTranslateY(super.y + squareSize*j);
+                btn.setPrefHeight(squareSize);
+                btn.setPrefWidth(squareSize);
+                btn.getStyleClass().add("btn");
+                btn.setViewOrder(2.0);
+                cell[i][j] = btn;
+                pane.getChildren().add(btn);
+            }
     }
 
     public void setPressDisable() {
-        //System.out.println("setPressDisable "+ Game.turn+" "+Game.win);
-        Rectangle grid[][] = super.getGrid();
         for (int i = 0; i < ModelSpec.mapSpots; i++)
             for (int j = 0; j < ModelSpec.mapSpots; j++) {
-                grid[i][j].setOnMousePressed(null);
+                cell[i][j].setOnAction(null);
             }
     }
 
     public void setPressEnable() {
-        //System.out.println("setPressEnable "+ Game.turn+" "+Game.win);
-        Rectangle grid[][] = super.getGrid();
         for (int i = 0; i < ModelSpec.mapSpots; i++)
             for (int j = 0; j < ModelSpec.mapSpots; j++)
                 if(super.stateCell[i][j]==0) {
                 int x = i;
                 int y = j;
-                grid[i][j].setOnMousePressed(e->shoot(e, x, y));
+                cell[i][j].setOnAction(e->shoot(e, x, y));
             }
     }
 
-    public void shoot(MouseEvent event, int i, int j) {
-        Rectangle[][] grid = super.getGrid();
-        grid[i][j].setOnMousePressed(null);
+    public void shoot(ActionEvent event, int i, int j) {
+        cell[i][j].setOnMousePressed(null);
+        cell[i][j].getStyleClass().remove("btn");
+        cell[i][j].getStyleClass().add("nbtn");
         double posX = getPosX(i);
         double posY = getPosY(j);
         double ra = super.getSquareSize()/4;

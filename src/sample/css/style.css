@@ -156,4 +156,18 @@
     -fx-background-color: #81c483;
     -fx-background-radius: 15px;
 }
-
+/*
+    style button cho bot map
+ */
+.btn, .nbtn {
+    -fx-background-color: rgba(255,255,255,0.4);
+    -fx-background-radius: 0;
+    -fx-border-color:black;
+    -fx-border-width: 0.5px;
+}
+.btn:hover {
+    -fx-background-color: rgba(255,255,255,0.8);
+}
+.btn:pressed {
+    -fx-background-color: rgba(169,169,169,0.9);
+}
