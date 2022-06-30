@@ -28,7 +28,7 @@ public class SelectNation extends Application {
         //difficulty
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER);
-        hBox.setLayoutX(400);
+        hBox.setLayoutX(350);
         hBox.setLayoutY(350);
         hBox.setSpacing(150);
 

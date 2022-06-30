@@ -3,7 +3,7 @@
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
 }
-#playButton, #highScoreButton, #exitButton, #nation1, #nation2{
+#playButton, #highScoreButton, #exitButton, #nation1, #nation2, #normalButton, #hardButton{
     -fx-font-family: "Comic Sans MS";
     /*    -fx-font-style: italic; */
     -fx-font-weight: bold;
@@ -17,7 +17,7 @@
     -fx-pref-height: 65px;
     -fx-pref-width: 200px;
 }
-#playButton:hover, #highScoreButton:hover, #exitButton:hover {
+#playButton:hover, #highScoreButton:hover, #exitButton:hover, #nation1: hover, #nation2:hover, #normalButton: hover, #hardButton: hover {
     -fx-border-color: gray;
     -fx-text-fill: white;
 }
@@ -63,6 +63,7 @@
 #gridPane {
     -fx-border-radius: 20px;
     -fx-background-color: #FAF0D7;
+
 }
 
 
@@ -154,4 +155,30 @@
     -fx-background-color: #81c483;
     -fx-background-radius: 15px;
 }
+
+
+#userNameLabel_Game {
+    -fx-text-fill: #333333;
+    /*-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); */
+
+    -fx-font-smooth: always;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-weight: 600;
+    -fx-font-size: 30px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-background-color: #3895D3;
+}
+#resultWinLabel_Game, #resultLoseLabel_Game {
+    -fx-text-fill: #333333;
+    /*-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); */
+
+    -fx-font-smooth: always;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-weight: 600;
+    -fx-font-size: 30px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-background-color: #F2D7D9;
+
 

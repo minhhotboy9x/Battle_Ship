@@ -14,10 +14,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.bot.Bot;
+import sample.model.data.Data;
+
 import static sample.Intro.soundButton;
 import static sample.Intro.soundButtonClick;
 
 public class Difficulty extends Application{
+    static public String userNameText;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -47,8 +50,17 @@ public class Difficulty extends Application{
 
         normalButton.setOnAction(e->{
             try {
+
+//                String userName = normalButton.getText();
+//                Data data = new Data();
+//                data.setUserName(userName);
+
                 this.changeScene(primaryStage);
                 Bot.mode = 1;
+                userNameText = fieldName.getText();
+
+
+
             }
             catch (Exception exception) {
                 exception.printStackTrace();
@@ -59,6 +71,7 @@ public class Difficulty extends Application{
             try {
                 this.changeScene(primaryStage);
                 Bot.mode = 2;
+                userNameText = fieldName.getText();
             }
             catch (Exception exception) {
                 exception.printStackTrace();

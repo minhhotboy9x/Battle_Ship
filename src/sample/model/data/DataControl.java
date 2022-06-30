@@ -29,12 +29,12 @@ public class DataControl {
         bufferedWriter.close();
         fileWriter.close();
     }
-
     public void writeDataToFile(Data data, String fileName) throws IOException {
         openFileToWrite(fileName);
         printWriter.println(data.getUserName() + "|" + data.getHighScore() + "|");
         closeFileAfterWrite(fileName);
     }
+    //---------------
 
 
     // doc file
@@ -49,11 +49,9 @@ public class DataControl {
             e.printStackTrace();
         }
     }
-
     public void closeFileAfterRead(String fileName) {
         scanner.close();
     }
-
     public ArrayList<Data> readReaderFromFile(String fileName) {
         openFileToRead(fileName);
         ArrayList<Data> datas = new ArrayList<>();
@@ -85,16 +83,12 @@ public class DataControl {
 
         return datas;
     }
-
-
-
-
-
     private Data createDataFromTMP(String tmp) {
         String[] tmps = tmp.split("\\|");
         Data data = new Data(tmps[0], Integer.parseInt(tmps[1]));
         return data;
     }
+    //-----------------
 
 
     // reset file

@@ -44,31 +44,31 @@ public class Bot {
         Collections.shuffle(points); // tron cac diem random
     }
     //--------------------
-    public void removeNoShipCoordinates() {
+    public void removeNoShipCoordinates() { // xoa cac point chac chan k co thuyen
         int spots = ModelSpec.mapSpots;
         int[][] cal1 = new int[spots][spots];
         int[][] cal2 = new int[spots][spots];
 
         for(int i=0; i<spots; i++){
             for(int j=0; j<spots; j++) {
-                if(this.map[i][j] == 0)
+                if(this.map[i][j] == 0 || this.map[i][j] == 2)
                     cal1[i][j] = 1 + cal1[i][Math.max(0,j-1)];
             }
 
             for(int j=spots-2; j>=0; j--) {
-                if(this.map[i][j] == 0)
+                if(this.map[i][j] == 0 || this.map[i][j] == 2)
                     cal1[i][j] = Math.max(cal1[i][j], cal1[i][j+1]);
             }
         }
 
         for(int j=0; j<spots; j++){
             for(int i=0; i<spots; i++) {
-                if(this.map[i][j] == 0)
+                if(this.map[i][j] == 0 || this.map[i][j] == 2)
                     cal2[i][j] = 1 + cal2[Math.max(0, i-1)][j];
             }
 
             for(int i=spots-2; i>=0; i--) {
-                if(this.map[i][j] == 0)
+                if(this.map[i][j] == 0 || this.map[i][j] == 2)
                     cal2[i][j] = Math.max(cal2[i][j], cal2[i+1][j]);
             }
         }
@@ -83,7 +83,6 @@ public class Bot {
     }
 
     public void inHuntMode() {
-        removeNoShipCoordinates();
         Iterator itr = points.iterator();
         while (itr.hasNext()) { // loại bỏ những điểm đã bắn
             Point c = (Point) itr.next();
@@ -180,6 +179,7 @@ public class Bot {
     }
     //---------------------------
     public void hard() {
+        removeNoShipCoordinates();
         if(!targetMode)
             inHuntMode();
         else

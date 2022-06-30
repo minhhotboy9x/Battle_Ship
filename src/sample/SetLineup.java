@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -14,6 +16,7 @@ import static sample.Intro.soundButtonClick;
 import sample.model.LineUpShip;
 import sample.model.graphic.ModelSpec;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -83,6 +86,28 @@ public class SetLineup extends Application {
         checkThread.schedule(checkExecution, 1,1);
         primaryStage.setOnHidden(e->checkThread.cancel());
         //------------------------------
+
+        //reset xep tau
+
+//        Image resetImage = new Image("resource/image/button/reset1.png");
+//        ImageView resetImageView = new ImageView(resetImage);
+//        resetImageView.setFitWidth(50);
+//        resetImageView.setFitHeight(50);
+//
+//        Button resetButton = new Button("", resetImageView);
+//        resetButton.setId("resetButton");
+//        resetButton.setLayoutX(1190);
+//        resetButton.setLayoutY(580);
+//        resetButton.setBackground(null);
+//        //  an de reset man hinh
+//        resetButton.setOnAction(event -> {
+//            try {
+//
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        });
 
         // soundButton
         // set lai thuoc tinh de debug

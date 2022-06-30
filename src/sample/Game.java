@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Pair;
@@ -31,6 +32,20 @@ public class Game {
     public void start(Stage primaryStage) {
         Scene scene = new Scene(root, 1280, 720, false, SceneAntialiasing.BALANCED);
         scene.getStylesheets().add("sample/css/style.css");
+
+
+        //---Lấy dữ liệu username từ màn hình chọn khó dễ-----
+        Difficulty difficulty = new Difficulty();
+        String userName = difficulty.userNameText;
+        //----------------------------------------------
+
+        //--- Label hiển thị userName-----
+        Label userNameLabel = new Label(userName);
+        userNameLabel.setId("userNameLabel_Game");
+        userNameLabel.setTranslateX(100);
+        userNameLabel.setTranslateY(50);
+        //-----------------------------------
+
 
         //---playerMap----
         PlayerMap playerMap= new PlayerMap(ModelSpec.posPlayerMapX , ModelSpec.posPlayerMapY,
@@ -64,6 +79,22 @@ public class Game {
         nextButton.setVisible(false);
         //--------------------
 
+        //-------hiển thị win hoặc lose-------
+        Label resultWinLabel = new Label("You win!");
+        resultWinLabel.setId("resultWinLabel_Game");
+        resultWinLabel.setTranslateX(580);
+        resultWinLabel.setTranslateY(350);
+        resultWinLabel.setVisible(false);
+
+        Label resultLoseLabel = new Label("You Lose!");
+        resultLoseLabel.setId("resultLoseLabel_Game");
+        resultLoseLabel.setTranslateX(580);
+        resultLoseLabel.setTranslateY(350);
+        resultLoseLabel.setVisible(false);
+        //--------------------------------------
+
+
+
         //---------game on------------
         reset(); //win và turn là 2 biến static nên cần đặt lại
 
@@ -81,6 +112,9 @@ public class Game {
                     for(GameShip ship: botMap.botFleet)
                         ship.showUp();
                     nextButton.setVisible(true);
+                    if(win == 1) resultWinLabel.setVisible(true);
+                    if(win == 2) resultLoseLabel.setVisible(true);
+
                     game.cancel(); //cancel timer not executing thread
                     return;
                 }
@@ -128,7 +162,7 @@ public class Game {
             game.cancel();
         });
         primaryStage.setResizable(false);
-        root.getChildren().addAll(soundButton, Intro.nameLabel, nextButton);
+        root.getChildren().addAll(soundButton, Intro.nameLabel, nextButton, userNameLabel, resultWinLabel, resultLoseLabel);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

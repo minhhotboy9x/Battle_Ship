@@ -1,8 +1,11 @@
 package sample.model.data;
 
+import sample.model.BotMap;
+import sample.model.PlayerMap;
+
 public class Data {
     private String userName;
-    private int highScore;
+    private int highScore = 0;
     private int stt;
 
     public int getStt() {
@@ -35,6 +38,15 @@ public class Data {
     public void setHighScore(int highScore) {
         this.highScore = highScore;
     }
+
+
+    // tinh diem
+//    public void  increaseScore() {
+//        this.highScore += 15;
+//    }
+//    public void decreaseScore() {
+//        this.highScore -= 10;
+//    }
 
     @Override
     public String toString() {

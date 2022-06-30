@@ -88,11 +88,10 @@ public class HighScore extends Application {
         //set return button
         Image returnImage = new Image("resource/image/button/return1.png");
         ImageView returnImageView = new ImageView(returnImage);
-        // chinh kich thuoc anh
         returnImageView.setFitWidth(100);
         returnImageView.setFitHeight(100);
-
         Button returnButton = new Button("",returnImageView);
+
        // Button returnButton = new Button();
         returnButton.setId("returnButton");
         returnButton.setLayoutX(310);
@@ -110,14 +109,14 @@ public class HighScore extends Application {
         });
 
         // set button reset diem
-        Image resetImage = new Image("resource/image/button/reset.png");
+        Image resetImage = new Image("resource/image/button/reset1.png");
         ImageView resetImageView = new ImageView(resetImage);
         resetImageView.setFitWidth(50);
         resetImageView.setFitHeight(50);
 
         Button resetButton = new Button("", resetImageView);
         resetButton.setId("resetButton");
-        resetButton.setLayoutX(340);
+        resetButton.setLayoutX(335);
         resetButton.setLayoutY(250);
         resetButton.setBackground(null);
         resetButton.setOnAction(e->{
