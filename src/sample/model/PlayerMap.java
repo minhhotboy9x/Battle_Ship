@@ -1,17 +1,18 @@
 package sample.model;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import sample.Game;
 import sample.bot.Bot;
-import sample.model.graphic.ModelSpec;
 
 import java.util.ArrayList;
 
 public class PlayerMap extends LineupMap {
     public GameShip [][] playerShip;
     public ArrayList<Integer> remainingShip; //luu do dai cua thuyen con lai tren map
+
+    static int hitTheShipBefore = 0; // đánh dấu lượt bắn trước trúng hay trượt
+    static int baseScore = 10; // điểm cơ bản bị trừ đi khi địch bắn trúng ta
+
 
     public PlayerMap(double x, double y, Pane pane, double size, int spots) {
         super(x, y, pane, size, spots);
@@ -38,29 +39,48 @@ public class PlayerMap extends LineupMap {
         }
     }
 
-    public boolean shot(int i, int j) // ban vao o i,j
+    public boolean shoot(int i, int j) // ban vao o i,j
     {
         double posX = getPosX(i);
         double posY = getPosY(j);
         double ra = super.getSquareSize()/4;
         double cen = super.getSquareSize()/2;
-        Circle c;
+        Shoot c = new Shoot(posX+cen, posY+cen, ra, pane); //tạo một vien đạn
         if(playerShip[i][j]!=null) {
             playerShip[i][j].hit();
+            //--- cập nhật điểm số khi bắn trúng ----------------------------
+            if (hitTheShipBefore == 1) {  // nếu lần trước đó bắn trúng
+                baseScore = baseScore * 2;  // điểm cơ bản nhân đôi
+                //System.out.println("Địch bắn trúng tàu, TRỪ " + baseScore);
+                LineupMap.score -= (baseScore);  // cập nhật điểm hiện tại
+                //System.out.println("Điểm số hiện tại: " + LineupMap.score);
+                //System.out.println();
+            } else {   // nếu lần trước đó bắn hụt
+                //System.out.println("Địch bắn trúng tàu, TRỪ " + baseScore);
+                LineupMap.score -= (baseScore);  // cập nhật điểm hiện tại
+                //System.out.println("Điểm số hiện tại: " + LineupMap.score);
+                //System.out.println();
+            }
+            hitTheShipBefore = 1; // đánh dấu đã bắn trúng
+            //-------------------------------------------------------------
+
+
             Bot.map[i][j]=2;
             if(!playerShip[i][j].isAlive()) { //tau đắm
                 markDown(playerShip[i][j]);
                 remainingShip.remove(Integer.valueOf(playerShip[i][j].getLength()));
             }
-            c = new Circle(posX+cen, posY+cen, ra, Color.rgb(178,34,34));
+            c.draw("hit");
         }
         else {
             Bot.map[i][j]=1;
-            c = new Circle(posX+cen, posY+cen, ra, Color.rgb(0,0,255));
+            c.draw("miss");
+            //--- cập nhật điểm số khi bắn trượt -------------------------
+            hitTheShipBefore = 0;   // bắn trượt
+            baseScore = 10;  // reset lại điểm cơ bản vi bắn trượt
+            // --------------------------------------------------------
+
         }
-        c.setStrokeWidth(0.0);
-        c.setViewOrder(1.0);
-        pane.getChildren().add(c);
         Game.turn = 0;
 
         return playerShip[i][j]!=null;

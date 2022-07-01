@@ -48,6 +48,18 @@ public class Difficulty extends Application{
         normalButton.getStyleClass().add("difficulty");
         hardButton.getStyleClass().add("difficulty");
 
+        normalButton.setDisable(true);
+        hardButton.setDisable(true);
+
+        //  Khi nhập user name mới cho hiện chọn chế độ khó dễ
+        fieldName.textProperty().addListener((observable, oldValue, newValue) -> {
+            hardButton.setDisable(newValue.trim().isEmpty());
+            normalButton.setDisable(newValue.trim().isEmpty());
+        });
+        //----------------------------------
+
+
+
         normalButton.setOnAction(e->{
             try {
 

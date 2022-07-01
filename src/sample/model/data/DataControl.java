@@ -31,7 +31,7 @@ public class DataControl {
     }
     public void writeDataToFile(Data data, String fileName) throws IOException {
         openFileToWrite(fileName);
-        printWriter.println(data.getUserName() + "|" + data.getHighScore() + "|");
+        printWriter.println(data.getUserName() + "|" + data.getHighScore());
         closeFileAfterWrite(fileName);
     }
     //---------------

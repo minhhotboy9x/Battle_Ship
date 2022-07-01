@@ -3,7 +3,7 @@
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
 }
-#playButton, #highScoreButton, #exitButton, #nation1, #nation2, #normalButton, #hardButton{
+#playButton, #highScoreButton, #exitButton, #nation1, #nation2{
     -fx-font-family: "Comic Sans MS";
     /*    -fx-font-style: italic; */
     -fx-font-weight: bold;
@@ -17,11 +17,13 @@
     -fx-pref-height: 65px;
     -fx-pref-width: 200px;
 }
-#playButton:hover, #highScoreButton:hover, #exitButton:hover, #nation1: hover, #nation2:hover, #normalButton: hover, #hardButton: hover {
+#playButton:hover, #highScoreButton:hover, #exitButton:hover,
+#nation1:hover, #nation2:hover{
     -fx-border-color: gray;
     -fx-text-fill: white;
 }
-#playButton:pressed, #highScoreButton:pressed, #exitButton:pressed {
+#playButton:pressed, #highScoreButton:pressed, #exitButton:pressed,
+#nation1:pressed, #nation2:pressed{
     -fx-background-color: #235891;
     -fx-background-color: linear-gradient(to bottom, #F15412, #B20600);
 }
@@ -63,7 +65,6 @@
 #gridPane {
     -fx-border-radius: 20px;
     -fx-background-color: #FAF0D7;
-
 }
 
 
@@ -155,20 +156,22 @@
     -fx-background-color: #81c483;
     -fx-background-radius: 15px;
 }
-
-
-#userNameLabel_Game {
-    -fx-text-fill: #333333;
-    /*-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); */
-
-    -fx-font-smooth: always;
-    -fx-font-family: "Comic Sans MS";
-    -fx-font-weight: 600;
-    -fx-font-size: 30px;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-    -fx-background-color: #3895D3;
+/*
+    style button cho bot map
+ */
+.btn, .nbtn {
+    -fx-background-color: rgba(255,255,255,0.4);
+    -fx-background-radius: 0;
+    -fx-border-color:black;
+    -fx-border-width: 0.5px;
 }
+.btn:hover {
+    -fx-background-color: rgba(255,255,255,0.8);
+}
+.btn:pressed {
+    -fx-background-color: rgba(169,169,169,0.9);
+}
+
 #resultWinLabel_Game, #resultLoseLabel_Game {
     -fx-text-fill: #333333;
     /*-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); */
@@ -180,5 +183,4 @@
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
     -fx-background-color: #F2D7D9;
-
-
+}

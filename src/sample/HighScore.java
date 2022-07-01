@@ -41,8 +41,8 @@ public class HighScore extends Application {
         scene.getStylesheets().add("sample/css/style.css");
 
         // tao label
-        final Label label = new Label("High Score");
-        label.setId("highScoreLabel");
+//        final Label label = new Label("High Score");
+//        label.setId("highScoreLabel");
 
 
         // Nhan du lieu vao bang
@@ -136,7 +136,7 @@ public class HighScore extends Application {
 
 
 
-        root.getChildren().addAll(label, table, returnButton, resetButton);
+        root.getChildren().addAll( table, returnButton, resetButton);
 
         stage.setResizable(false);
         stage.sizeToScene();

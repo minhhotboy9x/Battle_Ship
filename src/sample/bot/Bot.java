@@ -94,7 +94,7 @@ public class Bot {
         int y = points.get(0).getY();
 
         points.remove(0);
-        this.targetMode = this.playerMap.shot(x, y);
+        this.targetMode = this.playerMap.shoot(x, y);
         if(this.targetMode) {
             hittingPoints.add(new Point(x, y));
         }
@@ -122,7 +122,7 @@ public class Bot {
                 if(ModelSpec.pointInMap(x, y) && map[x][y]==0)
                     break;
             }
-            if(this.playerMap.shot(x, y))
+            if(this.playerMap.shoot(x, y))
                 hittingPoints.add(new Point(x, y));
         }; //chay khi trong hitting point chi co 1 Point
 
@@ -133,7 +133,7 @@ public class Bot {
             boolean ok = false;
             if(ModelSpec.pointInMap(c.getX(), c.getY()) && map[c.getX()][c.getY()]==0) {
                 ok = true;
-                if(this.playerMap.shot(c.getX(), c.getY()))
+                if(this.playerMap.shoot(c.getX(), c.getY()))
                     hittingPoints.add(c);
             }
             return ok;
@@ -191,7 +191,7 @@ public class Bot {
         int x = points.get(0).getX();
         int y = points.get(0).getY();
         points.remove(0);
-        this.targetMode = this.playerMap.shot(x, y);
+        this.targetMode = this.playerMap.shoot(x, y);
     }
 
     public void play() {

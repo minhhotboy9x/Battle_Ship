@@ -9,10 +9,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import sample.bot.Bot;
-import sample.model.BotMap;
-import sample.model.GameShip;
-import sample.model.LineUpShip;
-import sample.model.PlayerMap;
+import sample.model.*;
+import sample.model.data.Data;
+import sample.model.data.DataControl;
 import sample.model.graphic.ModelSpec;
 
 import java.io.IOException;
@@ -29,6 +28,8 @@ public class Game {
     public static int win = 0; //1 win, 2 lose
     private final Pane root = new Pane();
 
+    private int scoreBefore;  // biến kiểm tra xem lượt chơi hiện tại điểm có bị thay đổi ko
+
     public void start(Stage primaryStage) {
         Scene scene = new Scene(root, 1280, 720, false, SceneAntialiasing.BALANCED);
         scene.getStylesheets().add("sample/css/style.css");
@@ -39,12 +40,14 @@ public class Game {
         String userName = difficulty.userNameText;
         //----------------------------------------------
 
-        //--- Label hiển thị userName-----
-        Label userNameLabel = new Label(userName);
-        userNameLabel.setId("userNameLabel_Game");
-        userNameLabel.setTranslateX(100);
-        userNameLabel.setTranslateY(50);
-        //-----------------------------------
+//        //--- Label hiển thị userName-----
+//        Label userNameLabel = new Label(userName);
+//        userNameLabel.setId("userNameLabel_Game");
+//        userNameLabel.setTranslateX(100);
+//        userNameLabel.setTranslateY(50);
+//        //-----------------------------------
+
+
 
 
         //---playerMap----
@@ -72,6 +75,12 @@ public class Game {
         Bot bot = new Bot(playerMap);
         //-----------------------------
 
+        //--- Màn hình hiển thị điểm số ------
+        PaintScore paintScore = new PaintScore();
+        //----------------------------
+
+
+
         //-------chuyen man hinh---------
         Button nextButton = new Button("Next"); // nút chuyển màn hình
         nextButton.setTranslateX(600);
@@ -98,6 +107,8 @@ public class Game {
         //---------game on------------
         reset(); //win và turn là 2 biến static nên cần đặt lại
 
+        scoreBefore = LineupMap.score;   // gán điểm
+
         Timer game = new Timer("game");
         TimerTask gameStart = new TimerTask() { // tao thread chay game
             @Override
@@ -107,6 +118,18 @@ public class Game {
                 if(botMap.botFleet.size()==0) //win
                     win=1;
                 if(win!=0) { //neu co kq thang thua -> end thread
+                    //--- ghi kết quả vào file khi chơi xong-----------
+                    DataControl dataControl = new DataControl();
+                    var dataFileName = "DATA.txt";
+                    Data data = new Data(userName, LineupMap.score);
+                    try {
+                        dataControl.writeDataToFile(data, dataFileName);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    //-----------------------------
+
+
                     //System.out.println(win);
                     botMap.setPressDisable();
                     for(GameShip ship: botMap.botFleet)
@@ -118,6 +141,12 @@ public class Game {
                     game.cancel(); //cancel timer not executing thread
                     return;
                 }
+
+                if (scoreBefore != LineupMap.score) {   // nếu điểm trước đó và điểm hiện tại khác nhau thì cập nhật
+                    paintScore.paint();   // vẽ điểm và user name
+                    scoreBefore = LineupMap.score;  // cập nhật điểm hiện tại
+                }
+
 
                 if(turn == 0) {
                     botMap.setPressEnable(); // enable press action
@@ -162,9 +191,10 @@ public class Game {
             game.cancel();
         });
         primaryStage.setResizable(false);
-        root.getChildren().addAll(soundButton, Intro.nameLabel, nextButton, userNameLabel, resultWinLabel, resultLoseLabel);
+        root.getChildren().addAll(soundButton, Intro.nameLabel, nextButton, paintScore, resultWinLabel, resultLoseLabel);
         primaryStage.setScene(scene);
         primaryStage.show();
+        paintScore.paint();  // vẽ layout hiển thị điểm và username
     }
 
     public void getFleet(ArrayList<LineUpShip> fleet) { // chuyền info ship từ scene trước sang
@@ -186,6 +216,7 @@ public class Game {
     public static void reset() {// set lai bien static
         win = 0;
         turn = 0;
+        LineupMap.score = 0;
     }
     public static void waitForRunLater(Bot bot) throws InterruptedException {
         //dung phuong phap den bao

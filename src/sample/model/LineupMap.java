@@ -13,6 +13,16 @@ public class LineupMap extends Coordinate {
     // cach dung 2 của stateCell: đã bắn, chưa bắn
     private Rectangle[][] grid;
 
+    static public int score = 0; // biến để lưu điểm số
+
+    public static int getScore() {
+        return score;
+    }
+    public static void setScore(int score) {
+        LineupMap.score = score;
+    }
+
+
     public LineupMap(double x, double y, Pane pane, double size, int spots) {
         super(x, y, pane);
         this.size = size;
