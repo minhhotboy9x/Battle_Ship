@@ -64,7 +64,7 @@ public class BotMap extends LineupMap {
             }
     }
 
-    public void shoot(ActionEvent event, int i, int j) {
+    public boolean shoot(ActionEvent event, int i, int j) {
         cell[i][j].setOnMousePressed(null);
         cell[i][j].getStyleClass().remove("btn");
         cell[i][j].getStyleClass().add("nbtn");
@@ -108,6 +108,7 @@ public class BotMap extends LineupMap {
         }
         super.stateCell[i][j]=1;
         Game.turn = 1;
+        return playerShip[i][j]!=null;
     }
 
     public void generate(int length, String s) {
