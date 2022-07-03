@@ -48,6 +48,7 @@ public class PlayerMap extends LineupMap {
         Shoot c = new Shoot(posX+cen, posY+cen, ra, pane); //tạo một vien đạn
         if(playerShip[i][j]!=null) {
             playerShip[i][j].hit();
+
             //--- cập nhật điểm số khi bắn trúng ----------------------------
             if (hitTheShipBefore == 1) {  // nếu lần trước đó bắn trúng
                 baseScore = baseScore * 2;  // điểm cơ bản nhân đôi
@@ -75,6 +76,7 @@ public class PlayerMap extends LineupMap {
         else {
             Bot.map[i][j]=1;
             c.draw("miss");
+
             //--- cập nhật điểm số khi bắn trượt -------------------------
             hitTheShipBefore = 0;   // bắn trượt
             baseScore = 10;  // reset lại điểm cơ bản vi bắn trượt

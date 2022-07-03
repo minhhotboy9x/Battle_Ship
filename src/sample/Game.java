@@ -147,7 +147,6 @@ public class Game {
                     scoreBefore = LineupMap.score;  // cập nhật điểm hiện tại
                 }
 
-
                 if(turn == 0) {
                     botMap.setPressEnable(); // enable press action
                 }

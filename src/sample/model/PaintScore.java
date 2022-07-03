@@ -1,11 +1,11 @@
-package sample;
+package sample.model;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.HBox;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import sample.model.LineupMap;
+import sample.Difficulty;
 
 
 public class PaintScore extends HBox {
