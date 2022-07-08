@@ -58,6 +58,7 @@ public class SetLineup extends Application {
 
         // -------------Ready button----------------
         Button readyButton = new Button("Ready");
+        readyButton.setId("readyButton");
         readyButton.setTranslateX(600);
         readyButton.setTranslateY(400);
         readyButton.setViewOrder(2.0);

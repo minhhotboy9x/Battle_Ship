@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Pair;
@@ -82,9 +83,14 @@ public class Game {
 
 
         //-------chuyen man hinh---------
-        Button nextButton = new Button("Next"); // nút chuyển màn hình
-        nextButton.setTranslateX(600);
-        nextButton.setTranslateY(300);
+
+
+        Button nextButton = new Button("HighScore"); // nút chuyển màn hình
+        nextButton.setId("nextButton");
+        nextButton.setLayoutX(580);
+        nextButton.setLayoutY(400);
+//        nextButton.setTranslateX(600);
+//        nextButton.setTranslateY(300);
         nextButton.setVisible(false);
         //--------------------
 
