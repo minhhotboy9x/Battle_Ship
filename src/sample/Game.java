@@ -1,13 +1,18 @@
 package sample;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.util.Pair;
 import sample.bot.Bot;
 import sample.model.*;
@@ -41,16 +46,6 @@ public class Game {
         String userName = difficulty.userNameText;
         //----------------------------------------------
 
-//        //--- Label hiển thị userName-----
-//        Label userNameLabel = new Label(userName);
-//        userNameLabel.setId("userNameLabel_Game");
-//        userNameLabel.setTranslateX(100);
-//        userNameLabel.setTranslateY(50);
-//        //-----------------------------------
-
-
-
-
         //---playerMap----
         PlayerMap playerMap= new PlayerMap(ModelSpec.posPlayerMapX , ModelSpec.posPlayerMapY,
                 root, ModelSpec.gameMapSize, ModelSpec.mapSpots);
@@ -80,17 +75,12 @@ public class Game {
         PaintScore paintScore = new PaintScore();
         //----------------------------
 
-
-
         //-------chuyen man hinh---------
 
-
-        Button nextButton = new Button("HighScore"); // nút chuyển màn hình
+        Button nextButton = new Button("Next"); // nút chuyển màn hình
         nextButton.setId("nextButton");
         nextButton.setLayoutX(580);
         nextButton.setLayoutY(400);
-//        nextButton.setTranslateX(600);
-//        nextButton.setTranslateY(300);
         nextButton.setVisible(false);
         //--------------------
 
@@ -108,6 +98,15 @@ public class Game {
         resultLoseLabel.setVisible(false);
         //--------------------------------------
 
+        //-------loading.gif---hien thi thong bao delay cho den khi bot ban
+        Image loadingImage = new Image(getClass().getResource("../resource/image/loading/loader.gif").toString());
+        ImageView loadingView = new ImageView(loadingImage);
+        loadingView.setFitWidth(40);
+        loadingView.setFitHeight(40);
+        loadingView.setTranslateX(620);
+        loadingView.setTranslateY(280);
+        loadingView.setVisible(false);
+        //------------------------------
 
 
         //---------game on------------
@@ -135,7 +134,6 @@ public class Game {
                     }
                     //-----------------------------
 
-
                     //System.out.println(win);
                     botMap.setPressDisable();
                     for(GameShip ship: botMap.botFleet)
@@ -156,10 +154,17 @@ public class Game {
                 if(turn == 0) {
                     botMap.setPressEnable(); // enable press action
                 }
-                else if(turn == 1){
+                else if(turn == 1) {
                     botMap.setPressDisable(); // disable press action
                     //bot.play(); exception: Not on FX application thread; currentThread = game
                     // => use Platform.runlater
+                    try { //delay bot
+                        loadingView.setVisible(true);
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    loadingView.setVisible(false);
                     try {
                         waitForRunLater(bot);
                     } catch (InterruptedException e) {
@@ -172,15 +177,6 @@ public class Game {
         };
         game.schedule(gameStart, 100, 1); //chay thread game
         //---------------------------------------
-        /*Button testButton = new Button("test");
-        testButton.setTranslateX(300);
-        testButton.setTranslateY(300);
-        testButton.setOnAction(e->{
-            System.out.println(playerMap.remainingShip.size()+" "+
-                    botMap.botFleet.size()+" "+ok);
-        });
-        root.getChildren().addAll(testButton);
-        */
 
         //----------------------------
         nextButton.setOnAction(e -> { //action for switch scene
@@ -194,9 +190,11 @@ public class Game {
         //--------------------
         primaryStage.setOnHidden(e->{ // nếu đóng cửa sổ -> delete thread
             game.cancel();
+            System.exit(0);
         });
         primaryStage.setResizable(false);
-        root.getChildren().addAll(soundButton, Intro.nameLabel, nextButton, paintScore, resultWinLabel, resultLoseLabel);
+        root.getChildren().addAll(soundButton, Intro.nameLabel, nextButton,
+                paintScore, resultWinLabel, resultLoseLabel, loadingView);
         primaryStage.setScene(scene);
         primaryStage.show();
         paintScore.paint();  // vẽ layout hiển thị điểm và username

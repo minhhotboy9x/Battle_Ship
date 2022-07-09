@@ -56,11 +56,12 @@ public class BotMap extends LineupMap {
 
     public void setPressEnable() {
         for (int i = 0; i < ModelSpec.mapSpots; i++)
-            for (int j = 0; j < ModelSpec.mapSpots; j++)
+            for (int j = 0; j < ModelSpec.mapSpots; j++) {
                 if(super.stateCell[i][j]==0) {
-                int x = i;
-                int y = j;
-                cell[i][j].setOnAction(e->shoot(e, x, y));
+                    int x = i;
+                    int y = j;
+                    cell[i][j].setOnAction(e->shoot(e, x, y));
+                }
             }
     }
 
