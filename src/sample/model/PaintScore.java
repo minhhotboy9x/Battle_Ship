@@ -11,8 +11,7 @@ import sample.main.Difficulty;
 public class PaintScore extends HBox {
 
     //---Lấy dữ liệu username từ màn hình chọn khó dễ-----
-    Difficulty difficulty = new Difficulty();
-    String userName = difficulty.userNameText;
+    String userName = Difficulty.userNameText;
     //----------------------------------------------
 
     private Canvas canvas;
