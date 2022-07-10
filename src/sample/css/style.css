@@ -47,7 +47,7 @@
 }
 
 #playButton:hover, #highScoreButton:hover, #exitButton:hover,
-#nation1:hover, #nation2:hover, #normalButton:hover, #hardButton.hover, #readyButton:hover, #nextButton:hover {
+#nation1:hover, #nation2:hover, #normalButton:hover, #hardButton:hover, #readyButton:hover, #nextButton:hover {
     -fx-border-color: gray;
     -fx-text-fill: white;
 }
