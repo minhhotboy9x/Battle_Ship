@@ -17,7 +17,7 @@
     -fx-pref-height: 65px;
     -fx-pref-width: 200px;
 }
-#readyButton {
+#readyButton, #nextButton {
 -fx-font-family: "Comic Sans MS";
     /*    -fx-font-style: italic; */
     -fx-font-weight: bold;
@@ -28,24 +28,7 @@
     -fx-border-color: #d9d9d9;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
-    -fx-pref-height: 30px;
-    -fx-pref-width: 100px;
 }
-#nextButton {
--fx-font-family: "Comic Sans MS";
-    /*    -fx-font-style: italic; */
-    -fx-font-weight: bold;
-    -fx-font-size: 15px;
-    -fx-background-color: linear-gradient(to bottom,#FFA500,#F15412);
-    -fx-border-width: 3px;
-    -fx-border-style: solid;
-    -fx-border-color: #d9d9d9;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-    -fx-pref-height: 30px;
-    -fx-pref-width: 120px;
-}
-
 #playButton:hover, #highScoreButton:hover, #exitButton:hover,
 #nation1:hover, #nation2:hover, #normalButton:hover, #hardButton:hover, #readyButton:hover, #nextButton:hover {
     -fx-border-color: gray;

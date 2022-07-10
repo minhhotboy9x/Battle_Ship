@@ -61,6 +61,7 @@ public class SetLineup extends Application {
         readyButton.setId("readyButton");
         readyButton.setTranslateX(600);
         readyButton.setTranslateY(400);
+        readyButton.setPrefSize(100, 30);
         readyButton.setViewOrder(2.0);
 
         Timer checkThread = new Timer("CheckCountShip");

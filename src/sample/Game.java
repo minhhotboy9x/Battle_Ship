@@ -81,6 +81,7 @@ public class Game {
         nextButton.setId("nextButton");
         nextButton.setLayoutX(580);
         nextButton.setLayoutY(400);
+        nextButton.setPrefSize(120,30);
         nextButton.setVisible(false);
         //--------------------
 
