@@ -77,24 +77,34 @@ public class Game {
 
         //-------chuyen man hinh---------
 
-        Button nextButton = new Button("Next"); // nút chuyển màn hình
+        Button nextButton = new Button("High Score"); // nút chuyển màn hình
         nextButton.setId("nextButton");
-        nextButton.setLayoutX(580);
+        nextButton.setLayoutX(570);
         nextButton.setLayoutY(400);
-        nextButton.setPrefSize(120,30);
+        nextButton.setPrefSize(150,30);
         nextButton.setVisible(false);
-        //--------------------
+        //----------------------
+
+        //-------- về màn hình Difficulty----
+        Button playAgainButton = new Button("Play Again");
+        playAgainButton.setId("playAgainButton");
+        playAgainButton.setLayoutX(570);
+        playAgainButton.setLayoutY(460);
+        playAgainButton.setPrefSize(150,30);
+        playAgainButton.setVisible(false);
+        //---------------------------
+
 
         //-------hiển thị win hoặc lose-------
         Label resultWinLabel = new Label("You win!");
         resultWinLabel.setId("resultWinLabel_Game");
-        resultWinLabel.setTranslateX(580);
+        resultWinLabel.setTranslateX(587);
         resultWinLabel.setTranslateY(350);
         resultWinLabel.setVisible(false);
 
         Label resultLoseLabel = new Label("You Lose!");
         resultLoseLabel.setId("resultLoseLabel_Game");
-        resultLoseLabel.setTranslateX(580);
+        resultLoseLabel.setTranslateX(582);
         resultLoseLabel.setTranslateY(350);
         resultLoseLabel.setVisible(false);
         //--------------------------------------
@@ -139,6 +149,7 @@ public class Game {
                     botMap.setPressDisable();
                     for(GameShip ship: botMap.botFleet)
                         ship.showUp();
+                    playAgainButton.setVisible(true);
                     nextButton.setVisible(true);
                     if(win == 1) resultWinLabel.setVisible(true);
                     if(win == 2) resultLoseLabel.setVisible(true);
@@ -188,6 +199,20 @@ public class Game {
                 ioException.printStackTrace();
             }
         });
+        //-----------------------
+
+       // ------ chuyen ve man hinh difficulty-----
+        playAgainButton.setOnAction(e -> { //action for switch scene
+            Difficulty difficulty1 = new Difficulty();
+            try {
+                difficulty1.start(primaryStage);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
         //--------------------
         primaryStage.setOnHidden(e->{ // nếu đóng cửa sổ -> delete thread
             game.cancel();
@@ -195,7 +220,7 @@ public class Game {
         });
         primaryStage.setResizable(false);
         root.getChildren().addAll(soundButton, Intro.nameLabel, nextButton,
-                paintScore, resultWinLabel, resultLoseLabel, loadingView);
+                paintScore, resultWinLabel, resultLoseLabel, loadingView, playAgainButton);
         primaryStage.setScene(scene);
         primaryStage.show();
         paintScore.paint();  // vẽ layout hiển thị điểm và username

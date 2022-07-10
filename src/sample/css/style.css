@@ -17,7 +17,7 @@
     -fx-pref-height: 65px;
     -fx-pref-width: 200px;
 }
-#readyButton, #nextButton {
+#readyButton, #nextButton, #playAgainButton {
 -fx-font-family: "Comic Sans MS";
     /*    -fx-font-style: italic; */
     -fx-font-weight: bold;
@@ -30,12 +30,12 @@
     -fx-background-radius: 5px;
 }
 #playButton:hover, #highScoreButton:hover, #exitButton:hover,
-#nation1:hover, #nation2:hover, #normalButton:hover, #hardButton:hover, #readyButton:hover, #nextButton:hover {
+#nation1:hover, #nation2:hover, #normalButton:hover, #hardButton:hover, #readyButton:hover, #nextButton:hover, #playAgainButton:hover {
     -fx-border-color: gray;
     -fx-text-fill: white;
 }
 #playButton:pressed, #highScoreButton:pressed, #exitButton:pressed,
-#nation1:pressed, #nation2:pressed, #normalButton:pressed, #hardButton:pressed, #readyButton:pressed, #nextButton:pressed{
+#nation1:pressed, #nation2:pressed, #normalButton:pressed, #hardButton:pressed, #readyButton:pressed, #nextButton:pressed, #playAgainButton:pressed{
     -fx-background-color: #235891;
     -fx-background-color: linear-gradient(to bottom, #F15412, #B20600);
 }
