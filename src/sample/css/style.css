@@ -52,7 +52,7 @@
     -fx-text-fill: white;
 }
 #playButton:pressed, #highScoreButton:pressed, #exitButton:pressed,
-#nation1:pressed, #nation2:pressed, #normalButton:pressed, #hardButton:pressed, #readyButton:pressed{
+#nation1:pressed, #nation2:pressed, #normalButton:pressed, #hardButton:pressed, #readyButton:pressed, #nextButton:pressed{
     -fx-background-color: #235891;
     -fx-background-color: linear-gradient(to bottom, #F15412, #B20600);
 }
