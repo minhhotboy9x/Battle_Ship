@@ -2,10 +2,9 @@ package sample.model;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import sample.Game;
+import sample.main.Game;
 import sample.model.graphic.ModelSpec;
 
 import java.util.ArrayList;
@@ -65,7 +64,7 @@ public class BotMap extends LineupMap {
             }
     }
 
-    public boolean shoot(ActionEvent event, int i, int j) {
+    public void shoot(ActionEvent event, int i, int j) {
         cell[i][j].setOnMousePressed(null);
         cell[i][j].getStyleClass().remove("btn");
         cell[i][j].getStyleClass().add("nbtn");
@@ -109,7 +108,6 @@ public class BotMap extends LineupMap {
         }
         super.stateCell[i][j]=1;
         Game.turn = 1;
-        return playerShip[i][j]!=null;
     }
 
     public void generate(int length, String s) {

@@ -1,7 +1,7 @@
 package sample.model;
 
 import javafx.scene.layout.Pane;
-import sample.Game;
+import sample.main.Game;
 import sample.bot.Bot;
 
 import java.util.ArrayList;

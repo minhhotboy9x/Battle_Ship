@@ -1,18 +1,12 @@
-package sample;
+package sample.main;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import javafx.util.Pair;
 import sample.bot.Bot;
 import sample.model.*;
@@ -26,7 +20,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import static sample.Intro.soundButton;
+import static sample.main.Intro.soundButton;
 
 public class Game {
     public ArrayList<GameShip> playerFleet;
@@ -109,17 +103,6 @@ public class Game {
         resultLoseLabel.setVisible(false);
         //--------------------------------------
 
-        //-------loading.gif---hien thi thong bao delay cho den khi bot ban
-        Image loadingImage = new Image(getClass().getResource("../resource/image/loading/loader.gif").toString());
-        ImageView loadingView = new ImageView(loadingImage);
-        loadingView.setFitWidth(40);
-        loadingView.setFitHeight(40);
-        loadingView.setTranslateX(620);
-        loadingView.setTranslateY(280);
-        loadingView.setVisible(false);
-        //------------------------------
-
-
         //---------game on------------
         reset(); //win và turn là 2 biến static nên cần đặt lại
 
@@ -170,13 +153,6 @@ public class Game {
                     botMap.setPressDisable(); // disable press action
                     //bot.play(); exception: Not on FX application thread; currentThread = game
                     // => use Platform.runlater
-                    try { //delay bot
-                        loadingView.setVisible(true);
-                        Thread.sleep(1500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    loadingView.setVisible(false);
                     try {
                         waitForRunLater(bot);
                     } catch (InterruptedException e) {
@@ -220,7 +196,7 @@ public class Game {
         });
         primaryStage.setResizable(false);
         root.getChildren().addAll(soundButton, Intro.nameLabel, nextButton,
-                paintScore, resultWinLabel, resultLoseLabel, loadingView, playAgainButton);
+                paintScore, resultWinLabel, resultLoseLabel, playAgainButton);
         primaryStage.setScene(scene);
         primaryStage.show();
         paintScore.paint();  // vẽ layout hiển thị điểm và username

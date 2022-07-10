@@ -5,7 +5,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import sample.Difficulty;
+import sample.main.Difficulty;
 
 
 public class PaintScore extends HBox {

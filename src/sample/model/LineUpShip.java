@@ -7,10 +7,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
-import sample.SelectNation;
-import sample.SetLineup;
+import sample.main.SelectNation;
+import sample.main.SetLineup;
 import sample.model.base_class.ShipModel;
 import sample.model.graphic.ModelSpec;
 

@@ -1,4 +1,4 @@
-package sample;
+package sample.main;
 
 import javafx.application.Application;
 
@@ -12,9 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import sample.sound.AudioPlayer;
-
-import javax.print.DocFlavor;
-import java.net.URL;
 
 
 public class Intro extends Application {
@@ -33,7 +30,7 @@ public class Intro extends Application {
         //-----------
 
         //set ten intro
-        Image img = new Image(this.getClass().getResource("../resource/image/intro/Battleship.gif").toString());
+        Image img = new Image(getClass().getResource("../../resource/image/intro/Battleship.gif").toString());
         ImageView view = new ImageView(img);
         nameLabel.setGraphic(view);
         nameLabel.setTranslateX(481);

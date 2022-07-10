@@ -1,4 +1,4 @@
-package sample;
+package sample.main;
 import javafx.application.Application;
 
 import javafx.geometry.HPos;
@@ -14,10 +14,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.bot.Bot;
-import sample.model.data.Data;
 
-import static sample.Intro.soundButton;
-import static sample.Intro.soundButtonClick;
+import static sample.main.Intro.soundButton;
+import static sample.main.Intro.soundButtonClick;
 
 public class Difficulty extends Application{
     static public String userNameText;

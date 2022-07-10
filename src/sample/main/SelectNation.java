@@ -1,4 +1,4 @@
-package sample;
+package sample.main;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -11,11 +11,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import static sample.Intro.soundButton;
-import static sample.Intro.soundButtonClick;
-
-import static sample.Intro.soundButton;
-import static sample.Intro.soundButtonClick;
+import static sample.main.Intro.soundButton;
+import static sample.main.Intro.soundButtonClick;
 
 public class SelectNation extends Application {
     public static int nation = 1; // type of fleet
